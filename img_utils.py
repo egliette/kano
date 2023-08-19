@@ -5,14 +5,12 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 
  
-def download_image(url, save_path=None, target_size=None):
+def download_image(url, save_path=None):
     try:
         response = requests.get(url)
         if response.status_code == 200:
             img_data = BytesIO(response.content)
             img = Image.open(img_data)
-            if target_size:
-                img = img.resize(target_size)
             img_array = np.array(img)
             
             if save_path:
@@ -26,9 +24,11 @@ def download_image(url, save_path=None, target_size=None):
         print(f"An error occurred: {e}")
         return None
 
-def load_image_as_numpy(image_path):
+def load_image_as_numpy(image_path, target_size=None):
     try:
         img = Image.open(image_path)
+        if target_size:
+            img = img.resize(target_size)
         img_array = np.array(img)
         return img_array
     except Exception as e:
