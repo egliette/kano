@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
  
 def download_image(url, save_path=None):
@@ -47,6 +48,31 @@ def plot_image(image, title=None):
         plt.imshow(image)
         if title:
             plt.title(title)
+        plt.axis('off')
+        plt.show()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def draw_bbox_and_show(image, top, right, bottom, left):
+    try:
+        if isinstance(image, str):
+            image = Image.open(image)
+        elif isinstance(image, np.ndarray):
+            image = Image.fromarray(image)
+     
+        img_array = np.array(image)
+
+        plt.figure()
+        plt.imshow(img_array)
+
+        width = right - left
+        height = bottom - top
+
+        rect = patches.Rectangle((left, top), width, height, 
+                                 linewidth=2, edgecolor='r', 
+                                 facecolor='none')
+        plt.gca().add_patch(rect)
+
         plt.axis('off')
         plt.show()
     except Exception as e:
