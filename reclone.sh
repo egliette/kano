@@ -1,3 +1,3 @@
-rm -r CV_Utils
+rm -r CVUtils
 git clone https://github.com/egliette/CVUtils
 
