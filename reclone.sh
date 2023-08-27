@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -r CVUtils
+rm -rf CVUtils
 git clone https://github.com/egliette/CVUtils
 
 for arg in "$@"; do
