@@ -5,9 +5,11 @@ git clone https://github.com/egliette/CVUtils
 
 setup_venv() {
 	echo "Setting up virtual environment..."
+	cd CVUtils
 	python3 -m venv venv
 	source venv/bin/activate
 	pip install -r requirements.txt
+	cd ..
 	echo "Virtual environment setup complete."
 }
 
