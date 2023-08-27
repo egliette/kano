@@ -3,13 +3,6 @@
 rm -rf CVUtils
 git clone https://github.com/egliette/CVUtils
 
-for arg in "$@"; do
-    if ["$arg" == "--setup"]; then
-		SETUP_FLAG=true
-		break
-	fi
-done
-
 setup_venv() {
 	echo "Setting up virtual environment..."
 	python3 -m venv venv
@@ -18,6 +11,8 @@ setup_venv() {
 	echo "Virtual environment setup complete."
 }
 
-if [ "$SETUP_FLAG" = true ]; then
+if [ "$1" == "--setup" ]; then
 	setup_venv
+else
+	echo "Usage: $0 [--setup]"
 fi
