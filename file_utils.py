@@ -1,5 +1,6 @@
 import shutil
 
+
 def remove_folder(folder_path):
     try:
         shutil.rmtree(folder_path)
