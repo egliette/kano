@@ -10,7 +10,7 @@ def download_youtube_video(url, filename):
 
 
 def play_movie_ipynb(path):
-    mp4 = open('path','rb').read()
+    mp4 = open(path,'rb').read()
     data_url = "data:video/mp4;base64," + b64encode(mp4).decode()
     HTML("""
     <video width=400 controls>
