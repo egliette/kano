@@ -1,2 +1,4 @@
 pytube
 IPython
+python-opencv
+numpy
