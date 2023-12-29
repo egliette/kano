@@ -1,4 +1,4 @@
-pytube
-IPython
-python-opencv
+tqdm
 numpy
+pytube 
+python-opencv
