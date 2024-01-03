@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kano-cv"
-version = "1.0.0"
+version = "1.0.1"
 description = "Helpful functions for Computer Vision tasks"
 readme = "README.md"
 authors = [{ name = "egliette", email = "leminhtu74@gmail.com" }]
@@ -15,9 +15,10 @@ classifiers = [
 ]
 keywords = ["computer vision"]
 dependencies = [
-    "feedparser >= 5.2.0",
-    "html2text",
-    'tomli; python_version < "3.11"',
+    "tqdm>=4.66",
+    "numpy>=1.26",
+    "pytube>=15.0",
+    "opencv-python>=4.9",
 ]
 requires-python = ">=3.9"
 
