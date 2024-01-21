@@ -62,3 +62,15 @@ def list_folders_in_folder(folder_path, keep_folder_path=True):
                 folders_list.append(folder_name)
 
     return folders_list
+
+def split_file_path(file_path):
+    folders = []
+    path = file_path
+    while True:
+        path, folder = os.path.split(path)
+        if folder:
+            folders.insert(0, folder)
+        else:
+            break
+
+    return folders

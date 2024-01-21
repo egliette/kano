@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kano-cv"
-version = "1.3.0"
+version = "1.4.1"
 description = "Helpful functions for Computer Vision tasks"
 readme = "README.md"
 authors = [{ name = "egliette", email = "leminhtu74@gmail.com" }]
@@ -15,8 +15,8 @@ classifiers = [
 ]
 keywords = ["computer vision"]
 dependencies = [
-    "tqdm>=4.66",
-    "numpy>=1.26",
+    "tqdm>=4.8",
+    "numpy>=1.23",
     "pytube>=15.0",
     "opencv-python>=4.9",
 ]
