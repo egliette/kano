@@ -1,6 +1,31 @@
 import os
 import shutil
+import zipfile
 
+
+def count_files_in_folder(folder_path):
+    total_files = sum([len(files) for _, _, files in os.walk(folder_path)])
+    return total_files
+
+def print_foldertree(root_path, level=0):
+    if level == 0:
+        print(f"{root_path} ({count_files_in_folder(root_path)} files)")
+
+    for item in os.listdir(root_path):
+        item_path = os.path.join(root_path, item)
+
+        if os.path.isdir(item_path):
+            print("|   " * level + f"|-- {item} ({count_files_in_folder(item_path)} files)")
+            print_foldertree(item_path, level + 1)
+
+def zip_folders(folder_paths, output_zip):
+    with zipfile.ZipFile(output_zip, 'w') as zipf:
+        for folder_path in folder_paths:
+            for folder_root, _, files in os.walk(folder_path):
+                for file in files:
+                    file_path = os.path.join(folder_root, file)
+                    arcname = os.path.relpath(file_path, folder_path)
+                    zipf.write(file_path, arcname=os.path.join(os.path.basename(folder_path), arcname))
 
 def remove_folder(folder_path):
     try:
@@ -24,3 +49,16 @@ def list_files_in_folder(folder_path, keep_folder_path=True):
                 files_list.append(file_name)
 
     return files_list
+
+def list_folders_in_folder(folder_path, keep_folder_path=True):
+    folders_list = []
+    
+    for folder_name in os.listdir(folder_path):
+        folder_path_entry = os.path.join(folder_path, folder_name)
+        if os.path.isdir(folder_path_entry):
+            if keep_folder_path:
+                folders_list.append(folder_path_entry)
+            else:
+                folders_list.append(folder_name)
+
+    return folders_list
