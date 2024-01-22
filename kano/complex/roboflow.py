@@ -3,6 +3,7 @@ import glob
 import random
 import shutil
 
+import cv2
 from tqdm import tqdm
 
 from kano.file_utils import create_folder, split_file_path
@@ -92,3 +93,21 @@ def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folde
 
         shutil.copy(src_image, dst_image)
         shutil.copy(label_file, dst_label)
+
+def get_annotated_image(image_path):
+    folder_path, image_name = os.path.split(image_path)
+    label_folder_path = os.path.join(os.path.dirname(folder_path), "labels")
+    label_name = image_name[:-4] + ".txt"
+    label_path = os.path.join(label_folder_path, label_name)
+  
+    with open(label_path, 'r') as label_file:
+        lines = label_file.readlines()
+        labels = [line.strip().split() for line in lines]
+
+    image = cv2.imread(image_path)
+    for label in labels:
+        x, y, w, h = map(float, label[1:])
+        x, y, w, h = int(x * image.shape[1]), int(y * image.shape[0]), int(w * image.shape[1]), int(h * image.shape[0])
+        cv2.rectangle(image, (x - w//2, y - h//2), (x + w//2, y + h//2), (0, 255, 0), 2)
+    
+    return image
