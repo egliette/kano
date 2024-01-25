@@ -39,12 +39,15 @@ def extract_frames(video_path, target_folder, seconds_interval):
     frame_interval = int(video_fps * seconds_interval)
 
     create_folder(target_folder)
+
+    max_length = len(str(frame_count))
     for frame_number in tqdm(range(0, frame_count, frame_interval)):
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
         ret, frame = cap.read()
         if not ret:
             break
-        frame_filename = os.path.join(target_folder, f"frame_{frame_number}.jpg")
+        number = str(frame_number).zfill(max_length)
+        frame_filename = os.path.join(target_folder, f"frame_{number}.jpg")
         cv2.imwrite(frame_filename, frame)
 
     cap.release()

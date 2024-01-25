@@ -17,11 +17,11 @@ def copy_and_rename_file(file_path, target_folder, new_file_name):
 
 def merge_datasets(folders_paths, merged_folder_path="dataset"):
     for folder_path in folders_paths:
-        dataset_name = folder_path.split("/")[-1]
+        dataset_name = split_file_path(folder_path)[-1]
      
         # Rename images and labels files according to dataset name
-        txt_files = glob.glob(os.path.join(dataset_name, "**/*.txt"), recursive=True)
-        jpg_files = glob.glob(os.path.join(dataset_name, "**/*.jpg"), recursive=True)
+        txt_files = glob.glob(os.path.join(folder_path, "**/*.txt"), recursive=True)
+        jpg_files = glob.glob(os.path.join(folder_path, "**/*.jpg"), recursive=True)
 
         txt_files = [f for f in txt_files if "README" not in f]
 
@@ -60,7 +60,6 @@ def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folde
         valid_split = total_files - train_split
     else:
         valid_split = int(total_files * valid_percent * 0.01)
-
 
     # Create Train, Valid, and Test folders
     train_folder = os.path.join(target_folder, 'train')

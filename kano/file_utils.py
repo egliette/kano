@@ -48,6 +48,8 @@ def list_files_in_folder(folder_path, keep_folder_path=True):
             else:
                 files_list.append(file_name)
 
+    files_list.sort()
+
     return files_list
 
 def list_folders_in_folder(folder_path, keep_folder_path=True):
@@ -60,6 +62,8 @@ def list_folders_in_folder(folder_path, keep_folder_path=True):
                 folders_list.append(folder_path_entry)
             else:
                 folders_list.append(folder_name)
+
+    folders_list.sort()
 
     return folders_list
 
