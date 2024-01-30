@@ -4,7 +4,7 @@
 
 ## 📥 Installation 
 
-The latest released version is available on PyPI. You can install it by running the following command in your terminal:
+[The latest released version](https://pypi.org/project/kano-cv/) is available on PyPI. You can install it by running the following command in your terminal:
 
 ```bash
 pip install kano-cv

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def show_image(image, figsize=None):
 
     if isinstance(image, str):
-        temp_image = cv2.imread("image")
+        temp_image = cv2.imread(image)
     else:
         temp_image = image.copy()
         
