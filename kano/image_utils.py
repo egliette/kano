@@ -7,7 +7,12 @@ import matplotlib.pyplot as plt
 
 
 def show_image(image, figsize=None):
-    temp_image = image.copy()
+
+    if isinstance(image, str):
+        temp_image = cv2.imread("image")
+    else:
+        temp_image = image.copy()
+        
     if figsize:
         plt.figure(figsize=figsize)
     temp_image = cv2.cvtColor(temp_image.astype(np.uint8), cv2.COLOR_BGR2RGB)
