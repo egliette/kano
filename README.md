@@ -79,10 +79,10 @@ print_foldertree("folder_A")
 remove_folder("folder_A/subfolder")
 ```
 
-You can even zip many folders by providing their paths and the destination path in a function call:
+You can even zip many folders (and files) by providing their paths and the destination path in a function call:
 
 ```python
-zip_folders(["folder_A", "folder_B"], "zipfile.zip")
+zip_paths(["folder_A", "folder_B"], "zipfile.zip")
 ```
 
 ### 🖼️ Images Processing

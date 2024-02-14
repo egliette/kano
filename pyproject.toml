@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kano-cv"
-version = "1.6.0"
+version = "1.7.0"
 description = "Helpful functions for Computer Vision tasks"
 readme = "README.md"
 authors = [{ name = "egliette", email = "leminhtu74@gmail.com" }]
@@ -23,7 +23,8 @@ dependencies = [
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
-dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
+dev = ["black", "isort", "pip-tools", "pytest", "build", "twine"]
 
 [project.urls]
 Github = "https://github.com/egliette/kano"
+

@@ -18,14 +18,20 @@ def print_foldertree(root_path, level=0):
             print("|   " * level + f"|-- {item} ({count_files_in_folder(item_path)} files)")
             print_foldertree(item_path, level + 1)
 
-def zip_folders(folder_paths, output_zip):
+def zip_paths(paths, output_zip):
     with zipfile.ZipFile(output_zip, 'w') as zipf:
-        for folder_path in folder_paths:
-            for folder_root, _, files in os.walk(folder_path):
-                for file in files:
-                    file_path = os.path.join(folder_root, file)
-                    arcname = os.path.relpath(file_path, folder_path)
-                    zipf.write(file_path, arcname=os.path.join(os.path.basename(folder_path), arcname))
+        for path in paths:
+            if os.path.isdir(path):
+                folder_path = path
+                for folder_root, _, files in os.walk(folder_path):
+                    for file in files:
+                        file_path = os.path.join(folder_root, file)
+                        arcname = os.path.relpath(file_path, folder_path)
+                        zipf.write(file_path, arcname=os.path.join(os.path.basename(folder_path), arcname))
+            elif os.path.isfile(path):
+                file_path = path
+                filename = os.path.basename(file_path)
+                zipf.write(file_path, arcname=filename)
 
 def remove_folder(folder_path):
     try:
