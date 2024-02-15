@@ -1,0 +1,19 @@
+# This config was automatically generated from your source code
+# Stacks detected: deps:python:.
+version: 2.1
+orbs:
+  python: circleci/python@2
+jobs:
+  test-python:
+    # Install dependencies and run tests
+    docker:
+      - image: cimg/python:3.10-slim
+    steps:
+      - checkout
+      - python/install-packages
+
+workflows:
+  build-and-test:
+    jobs:
+      - test-python
+
