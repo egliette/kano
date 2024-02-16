@@ -99,3 +99,27 @@ def split_file_path(file_path):
             break
 
     return folders
+
+
+def get_size(path, unit="bytes"):
+    if os.path.isfile(path):
+        size = os.path.getsize(path)
+    elif os.path.isdir(path):
+        size = sum(
+            os.path.getsize(os.path.join(dirpath, filename))
+            for dirpath, _, filenames in os.walk(path)
+            for filename in filenames
+        )
+    else:
+        raise ValueError("Invalid path")
+
+    if unit == "bytes":
+        return size
+    elif unit == "KB":
+        return size / 1024
+    elif unit == "MB":
+        return size / (1024**2)
+    elif unit == "GB":
+        return size / (1024**3)
+    else:
+        raise ValueError("Invalid unit")
