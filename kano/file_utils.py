@@ -7,6 +7,7 @@ def count_files_in_folder(folder_path):
     total_files = sum([len(files) for _, _, files in os.walk(folder_path)])
     return total_files
 
+
 def print_foldertree(root_path, level=0):
     if level == 0:
         print(f"{root_path} ({count_files_in_folder(root_path)} files)")
@@ -15,11 +16,15 @@ def print_foldertree(root_path, level=0):
         item_path = os.path.join(root_path, item)
 
         if os.path.isdir(item_path):
-            print("|   " * level + f"|-- {item} ({count_files_in_folder(item_path)} files)")
+            print(
+                "|   " * level
+                + f"|-- {item} ({count_files_in_folder(item_path)} files)"
+            )
             print_foldertree(item_path, level + 1)
 
+
 def zip_paths(paths, output_zip):
-    with zipfile.ZipFile(output_zip, 'w') as zipf:
+    with zipfile.ZipFile(output_zip, "w") as zipf:
         for path in paths:
             if os.path.isdir(path):
                 folder_path = path
@@ -27,11 +32,17 @@ def zip_paths(paths, output_zip):
                     for file in files:
                         file_path = os.path.join(folder_root, file)
                         arcname = os.path.relpath(file_path, folder_path)
-                        zipf.write(file_path, arcname=os.path.join(os.path.basename(folder_path), arcname))
+                        zipf.write(
+                            file_path,
+                            arcname=os.path.join(
+                                os.path.basename(folder_path), arcname
+                            ),
+                        )
             elif os.path.isfile(path):
                 file_path = path
                 filename = os.path.basename(file_path)
                 zipf.write(file_path, arcname=filename)
+
 
 def remove_folder(folder_path):
     try:
@@ -40,12 +51,14 @@ def remove_folder(folder_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
 def create_folder(folder_path):
     os.makedirs(folder_path, exist_ok=True)
 
+
 def list_files_in_folder(folder_path, keep_folder_path=True):
     files_list = []
-    
+
     for file_name in os.listdir(folder_path):
         file_path = os.path.join(folder_path, file_name)
         if os.path.isfile(file_path):
@@ -58,9 +71,10 @@ def list_files_in_folder(folder_path, keep_folder_path=True):
 
     return files_list
 
+
 def list_folders_in_folder(folder_path, keep_folder_path=True):
     folders_list = []
-    
+
     for folder_name in os.listdir(folder_path):
         folder_path_entry = os.path.join(folder_path, folder_name)
         if os.path.isdir(folder_path_entry):
@@ -72,6 +86,7 @@ def list_folders_in_folder(folder_path, keep_folder_path=True):
     folders_list.sort()
 
     return folders_list
+
 
 def split_file_path(file_path):
     folders = []

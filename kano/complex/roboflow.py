@@ -1,5 +1,5 @@
-import os
 import glob
+import os
 import random
 import shutil
 
@@ -15,18 +15,23 @@ def copy_and_rename_file(file_path, target_folder, new_file_name):
     target_file_path = os.path.join(target_folder, os.path.basename(file_path))
     os.rename(target_file_path, os.path.join(target_folder, new_file_name))
 
+
 def merge_datasets(folders_paths, merged_folder_path="dataset"):
     for folder_path in folders_paths:
         dataset_name = split_file_path(folder_path)[-1]
-     
+
         # Rename images and labels files according to dataset name
-        txt_files = glob.glob(os.path.join(folder_path, "**/*.txt"), recursive=True)
-        jpg_files = glob.glob(os.path.join(folder_path, "**/*.jpg"), recursive=True)
+        txt_files = glob.glob(
+            os.path.join(folder_path, "**/*.txt"), recursive=True
+        )
+        jpg_files = glob.glob(
+            os.path.join(folder_path, "**/*.jpg"), recursive=True
+        )
 
         txt_files = [f for f in txt_files if "README" not in f]
 
         all_files = txt_files + jpg_files
-        
+
         for file_path in tqdm(all_files, desc=dataset_name):
             subfolders = split_file_path(file_path)
             subset = subfolders[-3]
@@ -40,7 +45,10 @@ def merge_datasets(folders_paths, merged_folder_path="dataset"):
 
     print(f"Saved at {merged_folder_path}")
 
-def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folder=None):
+
+def split_dataset(
+    dataset_path, train_percent=80, valid_percent=10, target_folder=None
+):
     if target_folder is None:
         target_folder = dataset_path
 
@@ -48,7 +56,7 @@ def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folde
     test_percent = 100 - train_percent - valid_percent
 
     # Get the list of image files
-    image_folder = os.path.join(dataset_path, 'images')
+    image_folder = os.path.join(dataset_path, "images")
     image_files = os.listdir(image_folder)
     random.shuffle(image_files)
 
@@ -62,9 +70,9 @@ def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folde
         valid_split = int(total_files * valid_percent * 0.01)
 
     # Create Train, Valid, and Test folders
-    train_folder = os.path.join(target_folder, 'train')
-    valid_folder = os.path.join(target_folder, 'valid')
-    test_folder = os.path.join(target_folder, 'test')
+    train_folder = os.path.join(target_folder, "train")
+    valid_folder = os.path.join(target_folder, "valid")
+    test_folder = os.path.join(target_folder, "test")
 
     os.makedirs(train_folder, exist_ok=True)
     os.makedirs(valid_folder, exist_ok=True)
@@ -72,13 +80,15 @@ def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folde
 
     # Create subfolders for images and labels
     for folder in [train_folder, valid_folder, test_folder]:
-        os.makedirs(os.path.join(folder, 'images'), exist_ok=True)
-        os.makedirs(os.path.join(folder, 'labels'), exist_ok=True)
+        os.makedirs(os.path.join(folder, "images"), exist_ok=True)
+        os.makedirs(os.path.join(folder, "labels"), exist_ok=True)
 
     # Copy files to the corresponding folders
     for i, file_name in enumerate(image_files):
         src_image = os.path.join(image_folder, file_name)
-        label_file = os.path.join(dataset_path, 'labels', file_name[:-4] + '.txt')
+        label_file = os.path.join(
+            dataset_path, "labels", file_name[:-4] + ".txt"
+        )
 
         if i < train_split:
             dst_folder = train_folder
@@ -87,26 +97,38 @@ def split_dataset(dataset_path, train_percent=80, valid_percent=10, target_folde
         else:
             dst_folder = test_folder
 
-        dst_image = os.path.join(dst_folder, 'images', file_name)
-        dst_label = os.path.join(dst_folder, 'labels', file_name[:-4] + '.txt')
+        dst_image = os.path.join(dst_folder, "images", file_name)
+        dst_label = os.path.join(dst_folder, "labels", file_name[:-4] + ".txt")
 
         shutil.copy(src_image, dst_image)
         shutil.copy(label_file, dst_label)
+
 
 def get_annotated_image(image_path):
     folder_path, image_name = os.path.split(image_path)
     label_folder_path = os.path.join(os.path.dirname(folder_path), "labels")
     label_name = image_name[:-4] + ".txt"
     label_path = os.path.join(label_folder_path, label_name)
-  
-    with open(label_path, 'r') as label_file:
+
+    with open(label_path, "r") as label_file:
         lines = label_file.readlines()
         labels = [line.strip().split() for line in lines]
 
     image = cv2.imread(image_path)
     for label in labels:
         x, y, w, h = map(float, label[1:])
-        x, y, w, h = int(x * image.shape[1]), int(y * image.shape[0]), int(w * image.shape[1]), int(h * image.shape[0])
-        cv2.rectangle(image, (x - w//2, y - h//2), (x + w//2, y + h//2), (0, 255, 0), 2)
-    
+        x, y, w, h = (
+            int(x * image.shape[1]),
+            int(y * image.shape[0]),
+            int(w * image.shape[1]),
+            int(h * image.shape[0]),
+        )
+        cv2.rectangle(
+            image,
+            (x - w // 2, y - h // 2),
+            (x + w // 2, y + h // 2),
+            (0, 255, 0),
+            2,
+        )
+
     return image

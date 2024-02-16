@@ -1,8 +1,8 @@
 import os
 
 import cv2
-from tqdm import tqdm
 from pytube import YouTube
+from tqdm import tqdm
 
 from kano.file_utils import create_folder
 
@@ -11,6 +11,7 @@ def download_youtube_video(url, filename):
     yt = YouTube(url)
     video_stream = yt.streams.get_highest_resolution()
     video_stream.download(filename=filename)
+
 
 def get_frame_at_second(video_path, target_second):
     cap = cv2.VideoCapture(video_path)
@@ -31,7 +32,8 @@ def get_frame_at_second(video_path, target_second):
         return frame
     else:
         raise ValueError("Frame not found at the specified second.")
-    
+
+
 def extract_frames(video_path, target_folder, seconds_interval):
     cap = cv2.VideoCapture(video_path)
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))

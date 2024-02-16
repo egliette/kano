@@ -23,8 +23,33 @@ dependencies = [
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
-dev = ["black", "isort", "pip-tools", "pytest", "build", "twine"]
+dev = [
+    "black>=24.2.0",
+    "isort>=5.13.2",
+    "flake8>=7.0.0",
+    "pip-tools>=7.3.0",
+    "pytest>=8.0.0",
+    "build>=1.0.3",
+    "twine>=5.0.0",
+    "pre-commit>=3.6.1",
+]
 
 [project.urls]
 Github = "https://github.com/egliette/kano"
 
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''

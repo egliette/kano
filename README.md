@@ -2,7 +2,7 @@
 
 **Kano** is a Python package providing utility functions for Computer Vision tasks. Its primary focus is simplifying lengthy functions, allowing developers to concentrate more on the main processes.
 
-## 📥 Installation 
+## 📥 Installation
 
 [The latest released version](https://pypi.org/project/kano-cv/) is available on PyPI. You can install it by running the following command in your terminal:
 
@@ -20,9 +20,9 @@ pip install kano-cv
 - [Images Processing](#images-processing)
 - [Videos Processing](#videos-processing)
 
-### 🗃️ YOLO Datasets Splitting/Merging 
+### 🗃️ YOLO Datasets Splitting/Merging
 
-**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1f8H-QzypOlpzA6sUR0WF3IGxtY6xmF1U?usp=sharing)  
+**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1f8H-QzypOlpzA6sUR0WF3IGxtY6xmF1U?usp=sharing)
 
 If you are using Roboflow to label and struggling to merge many Workspaces or YOLO format projects, **Kano** provides a utility to merge them with just one command:
 
@@ -57,7 +57,7 @@ split_dataset(
 
 ### 📁 Files/Folders Manipulating
 
-**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1878V0IPa36bsTwPTk5NQSszF7UAyJ9Wq?usp=sharing)  
+**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1878V0IPa36bsTwPTk5NQSszF7UAyJ9Wq?usp=sharing)
 
 **Kano** is designed to run many common functions in just one line:
 
@@ -87,7 +87,7 @@ zip_paths(["folder_A", "folder_B"], "zipfile.zip")
 
 ### 🖼️ Images Processing
 
-**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/181jZX3PNylk0Ry133e9ZH5k2vlPV9zxW?usp=sharing)  
+**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/181jZX3PNylk0Ry133e9ZH5k2vlPV9zxW?usp=sharing)
 
 You can quickly download an image using a URL and show it in IPython notebooks or Python files:
 
@@ -121,7 +121,7 @@ show_image("random_image.jpg")
 
 ### 🎞️ Videos Processing
 
-**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pqHmUHHTnmIfACupcLr_em3PdXNnGOkp?usp=sharing) 
+**Test these utilities here:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pqHmUHHTnmIfACupcLr_em3PdXNnGOkp?usp=sharing)
 
 **Kano** helps you extract images from a video. For demo purposes, I will download a video from YouTube using [pytube](https://github.com/pytube/pytube). If you find this function helpful, please give a star to [the original repo](https://github.com/pytube/pytube).
 
@@ -133,8 +133,8 @@ download_youtube_video("https://www.youtube.com/watch?v=<VIDEOID>", "video.mp4")
 
 # Get 1 image per 2 seconds
 extract_frames(
-    video_path="video.mp4", 
-    target_folder="frames", 
+    video_path="video.mp4",
+    target_folder="frames",
     seconds_interval=2,
 )
 ```
