@@ -19,8 +19,8 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
+        echo "GitHub Ref: ${{ github.ref }}"
         pip install .[dev]
-        "GitHub Ref: ${{ github.ref }}"
     - name: Linting
       run: |
         isort .
