@@ -20,6 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install .[dev]
+        "GitHub Ref: ${{ github.ref }}"
     - name: Linting
       run: |
         isort .
