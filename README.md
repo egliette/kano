@@ -1,5 +1,7 @@
 # 🦌 Kano - Tools for Computer Vision Tasks
 
+[![Python application](https://github.com/egliette/kano/actions/workflows/python-app.yml/badge.svg)](https://github.com/egliette/kano/actions/workflows/python-app.yml)
+
 **Kano** is a Python package providing utility functions for Computer Vision tasks. Its primary focus is simplifying lengthy functions, allowing developers to concentrate more on the main processes.
 
 ## 📥 Installation
