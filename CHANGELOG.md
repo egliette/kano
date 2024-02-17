@@ -2,6 +2,13 @@
 
 
 
+## v1.9.1 (2024-02-17)
+
+### Fix
+
+* fix: test semantic release ([`d18e869`](https://github.com/egliette/kano/commit/d18e869e60d0d60622624730667c83f86630b18b))
+
+
 ## v1.9.0 (2024-02-17)
 
 ### Feature
