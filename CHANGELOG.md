@@ -2,6 +2,13 @@
 
 
 
+## v1.9.0 (2024-02-17)
+
+### Feature
+
+* feat: test semantic release ([`04a2d34`](https://github.com/egliette/kano/commit/04a2d3407dbb1324f9a588157e9c50d43cb95d3d))
+
+
 ## v1.8.8 (2024-02-17)
 
 ### Fix
