@@ -60,6 +60,11 @@ exclude = '''
 )/
 '''
 
+[tool.semantic_release]
+version_toml = [
+    "pyproject.toml:project.version"
+]
+
 [tool.semantic_release.commit_parser_options]
 major_tags = ["major"]
 minor_types = ["feat"]
