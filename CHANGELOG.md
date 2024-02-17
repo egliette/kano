@@ -2,6 +2,13 @@
 
 
 
+## v1.8.7 (2024-02-17)
+
+### Fix
+
+* fix: test semantic release ([`2623a71`](https://github.com/egliette/kano/commit/2623a71ba4b448244697a22fa00308e5831def05))
+
+
 ## v1.8.6 (2024-02-17)
 
 ### Fix
