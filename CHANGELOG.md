@@ -2,6 +2,13 @@
 
 
 
+## v1.10.0 (2024-02-20)
+
+### Feature
+
+* feat: add bbox drawing, check failed detected bboxes ([`d5e2857`](https://github.com/egliette/kano/commit/d5e2857b83094680220736bf3f79cf0191598a70))
+
+
 ## v1.9.2 (2024-02-17)
 
 ### Fix
