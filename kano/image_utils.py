@@ -7,7 +7,6 @@ import requests
 
 
 def show_image(image, figsize=None):
-
     if isinstance(image, str):
         temp_image = cv2.imread(image)
     else:
@@ -18,6 +17,10 @@ def show_image(image, figsize=None):
     temp_image = cv2.cvtColor(temp_image.astype(np.uint8), cv2.COLOR_BGR2RGB)
     plt.imshow(temp_image)
     plt.show()
+
+
+def save_image(image, save_path):
+    cv2.imwrite(save_path, image)
 
 
 def download_image(url, save_path=None):
