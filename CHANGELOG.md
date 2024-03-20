@@ -2,7 +2,14 @@
 
 
 
-## v1.11.0 (2024-03-20)
+## v1.11.1 (2024-03-20)
+
+### Fix
+
+* fix: add moviepy dependency to pyproject.toml ([`a4cc44b`](https://github.com/egliette/kano/commit/a4cc44b9d7de8ca7b82938c655ce3fd5f6499f71))
+
+
+## v1.11.0 (2024-03-19)
 
 ### Feature
 
