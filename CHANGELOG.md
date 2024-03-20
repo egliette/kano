@@ -2,7 +2,14 @@
 
 
 
-## v1.10.0 (2024-02-20)
+## v1.11.0 (2024-03-20)
+
+### Feature
+
+* feat: add video cutting feature ([`57361ce`](https://github.com/egliette/kano/commit/57361ce1f12aba95395dd34afc5720406578b4e6))
+
+
+## v1.10.0 (2024-02-19)
 
 ### Feature
 

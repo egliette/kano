@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kano-cv"
-version = "1.10.0"
+version = "1.11.0"
 description = "Helpful functions for Computer Vision tasks"
 readme = "README.md"
 authors = [{ name = "egliette", email = "leminhtu74@gmail.com" }]
