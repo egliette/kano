@@ -2,7 +2,14 @@
 
 
 
-## v1.11.1 (2024-03-20)
+## v1.12.0 (2024-03-24)
+
+### Feature
+
+* feat: add video concatenating function ([`2646c79`](https://github.com/egliette/kano/commit/2646c793f5753def55739472faccecdddc3f5b7f))
+
+
+## v1.11.1 (2024-03-19)
 
 ### Fix
 
