@@ -4,9 +4,9 @@ import uuid
 
 import cv2
 import numpy as np
+import tqdm
 from moviepy.editor import VideoFileClip
 from pytube import YouTube
-from tqdm import tqdm
 
 from kano.file_utils import create_folder
 from kano.image_utils import concatenate_images
@@ -53,7 +53,7 @@ def extract_frames(video_path, target_folder, seconds_interval):
     create_folder(target_folder)
 
     max_length = len(str(frame_count))
-    for frame_number in tqdm(range(0, frame_count, frame_interval)):
+    for frame_number in tqdm.tqdm(range(0, frame_count, frame_interval)):
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
         ret, frame = cap.read()
         if not ret:
