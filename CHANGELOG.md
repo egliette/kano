@@ -2,6 +2,13 @@
 
 
 
+## v1.12.1 (2024-03-25)
+
+### Fix
+
+* fix: fix tqdm import ([`b785beb`](https://github.com/egliette/kano/commit/b785beb7b055ccda5050412acc5fbe7c6b075b23))
+
+
 ## v1.12.0 (2024-03-24)
 
 ### Feature
