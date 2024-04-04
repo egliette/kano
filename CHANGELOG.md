@@ -2,7 +2,14 @@
 
 
 
-## v1.12.1 (2024-03-25)
+## v1.12.2 (2024-04-04)
+
+### Fix
+
+* fix: fix bbox default type ([`af39a81`](https://github.com/egliette/kano/commit/af39a813ad6268d768fc3636ec50f2be877bee9e))
+
+
+## v1.12.1 (2024-03-24)
 
 ### Fix
 
