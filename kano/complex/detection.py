@@ -32,6 +32,8 @@ def draw_bbox(
     image_height, image_width = temp_image.shape[:2]
 
     temp_bbox = bbox.copy()
+    if isinstance(bbox, list):
+        temp_bbox = np.array(bbox)
 
     if "s_" in bbox_type:
         temp_bbox *= np.array(
