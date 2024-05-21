@@ -1,4 +1,4 @@
-# 🦌 Kano - Tools for Computer Vision Tasks
+# 🦌 Kano - Utilities for your Computer Vision Projects
 
 [![Kano CI](https://github.com/egliette/kano/actions/workflows/python-app.yml/badge.svg)](https://github.com/egliette/kano/actions/workflows/python-app.yml)
 

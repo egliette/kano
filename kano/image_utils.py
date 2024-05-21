@@ -40,7 +40,7 @@ def download_image(url, save_path=None):
         return None
 
 
-def get_random_picture(width=400, height=300, save_path=None):
+def get_random_image(width=400, height=300, save_path=None):
     image = download_image(
         f"https://picsum.photos/{width}/{height}", save_path
     )

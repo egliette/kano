@@ -7,7 +7,18 @@ from kano.image_utils import show_image
 
 
 def extract_bbox_area(image, bbox):
-    (left, top), (right, bottom) = bbox
+    """
+    Return cropped image from the given bounding box area
+
+    Args:
+        image (np.array): with shape (H, W, 3)
+        bbox (list or np.array): with shape (4,)
+
+    Returns:
+        cropped_image (np.array): with shape (new_H, new_W, 3) based on bbox
+    """
+
+    (left, top), (right, bottom) = bbox[:2], bbox[2:]
     return image.copy()[top:bottom, left:right]
 
 
@@ -172,7 +183,7 @@ class YoloImage:
                 line = line.strip().split()
                 label = {
                     "class": int(line[0]),
-                    "s_xywh": np.array([float(x) for x in line[1:]]),
+                    "s_xywh": np.array([float(x) for x in line[1:5]]),
                 }
                 xywh = label["s_xywh"].copy() * np.array(
                     [image_width, image_height, image_width, image_height]
@@ -186,7 +197,7 @@ class YoloImage:
 
     def get_annotated_image(self):
         annotated_image = self.image.copy()
-        for i, label in enumerate(self.labels):
+        for __, label in enumerate(self.labels):
             cls = label["class"]
             if self.labels_dict is not None:
                 cls = self.labels_dict[cls]

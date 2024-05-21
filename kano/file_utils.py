@@ -1,26 +1,130 @@
 import os
+import re
 import shutil
+import subprocess
 import zipfile
+from pathlib import Path
+
+VERSION_OPERATORS = [
+    "==",
+    "===",
+    "~=",
+    "!=",
+    "<",
+    "<=",
+    ">",
+    ">=",
+    # 'and', 'or', 'in', 'not in',
+]
+
+IGNORE_START_WITH = ('"', "#", "-", "git+")
 
 
-def count_files_in_folder(folder_path):
-    total_files = sum([len(files) for _, _, files in os.walk(folder_path)])
-    return total_files
+def get_size(path, unit="bytes"):
+    path = Path(path)
+
+    if path.is_file():
+        size = path.stat().st_size
+    elif path.is_dir():
+        total_size = 0
+        for sub_path in path.glob("**/*"):
+            if sub_path.is_file():
+                total_size += sub_path.stat().st_size
+        size = total_size
+    else:
+        raise ValueError("Path is neither a file nor a directory.")
+
+    if unit == "bytes":
+        return size
+    elif unit == "KB":
+        return size / 1024
+    elif unit == "MB":
+        return size / (1024**2)
+    elif unit == "GB":
+        return size / (1024**3)
+    else:
+        raise ValueError("Invalid unit")
 
 
-def print_foldertree(root_path, level=0):
+def list_files(folder_path, return_absolute_paths=True):
+    folder_path = Path(folder_path)
+    items = list(folder_path.iterdir())
+
+    files = [item.resolve() for item in items if item.is_file()]
+    sorted_files = sorted(files)
+
+    if not return_absolute_paths:
+        sorted_files = [file.relative_to(folder_path) for file in sorted_files]
+
+    sorted_files_paths = [str(file.as_posix()) for file in sorted_files]
+
+    return sorted_files_paths
+
+
+def list_folders(folder_path, return_absolute_paths=True):
+    folder_path = Path(folder_path)
+    items = list(folder_path.iterdir())
+
+    folders = [item.resolve() for item in items if item.is_dir()]
+
+    sorted_folders = sorted(folders)
+
+    if not return_absolute_paths:
+        sorted_folders = [
+            folder.relative_to(folder_path) for folder in sorted_folders
+        ]
+
+    sorted_folders_paths = [str(file.as_posix()) for file in sorted_folders]
+
+    return sorted_folders_paths
+
+
+def list_contents(folder_path, return_absolute_paths=True):
+    return list_files(folder_path, return_absolute_paths), list_folders(
+        folder_path, return_absolute_paths
+    )
+
+
+def get_folder_details(folder_path):
+    files_paths, folders_paths = list_contents(folder_path)
+    files_count, folders_count = len(files_paths), len(folders_paths)
+    return f"({files_count} files + {folders_count} folders)"
+
+
+def print_foldertree(folder_path, level=0, max_level=1, verbose=True):
     if level == 0:
-        print(f"{root_path} ({count_files_in_folder(root_path)} files)")
+        current_line = f"{folder_path} "
+        if verbose:
+            current_line += get_folder_details(folder_path)
+        print(current_line)
 
-    for item in os.listdir(root_path):
-        item_path = os.path.join(root_path, item)
+    files_paths, child_folders_paths = list_contents(folder_path)
 
-        if os.path.isdir(item_path):
-            print(
-                "|   " * level
-                + f"|-- {item} ({count_files_in_folder(item_path)} files)"
-            )
-            print_foldertree(item_path, level + 1)
+    if len(files_paths) > 0:
+        print("|   " * (level + 1))
+
+    for file_path in files_paths:
+        file_name = Path(file_path).name
+        current_line = "|   " * level + f"|-- {file_name} "
+        if verbose:
+            file_size = get_size(str(file_path), "KB")
+            current_line += f"({file_size:.2f} KB)"
+        print(current_line)
+
+    if len(child_folders_paths) > 0:
+        print("|   " * (level + 1))
+
+    for i, child_folder_path in enumerate(child_folders_paths):
+        child_folder_name = Path(child_folder_path).name
+        current_line = "|   " * level + f"|-- {child_folder_name} "
+        if verbose:
+            current_line += get_folder_details(child_folder_path)
+        print(current_line)
+        if level + 1 < max_level:
+            print_foldertree(child_folder_path, level + 1, verbose)
+
+        if i + 1 < len(child_folders_paths):
+            print("|   " * (level + 1))
 
 
 def zip_paths(paths, output_zip):
@@ -56,38 +160,6 @@ def create_folder(folder_path):
     os.makedirs(folder_path, exist_ok=True)
 
 
-def list_files_in_folder(folder_path, keep_folder_path=True):
-    files_list = []
-
-    for file_name in os.listdir(folder_path):
-        file_path = os.path.join(folder_path, file_name)
-        if os.path.isfile(file_path):
-            if keep_folder_path:
-                files_list.append(file_path)
-            else:
-                files_list.append(file_name)
-
-    files_list.sort()
-
-    return files_list
-
-
-def list_folders_in_folder(folder_path, keep_folder_path=True):
-    folders_list = []
-
-    for folder_name in os.listdir(folder_path):
-        folder_path_entry = os.path.join(folder_path, folder_name)
-        if os.path.isdir(folder_path_entry):
-            if keep_folder_path:
-                folders_list.append(folder_path_entry)
-            else:
-                folders_list.append(folder_name)
-
-    folders_list.sort()
-
-    return folders_list
-
-
 def split_file_path(file_path):
     folders = []
     path = file_path
@@ -101,25 +173,74 @@ def split_file_path(file_path):
     return folders
 
 
-def get_size(path, unit="bytes"):
-    if os.path.isfile(path):
-        size = os.path.getsize(path)
-    elif os.path.isdir(path):
-        size = sum(
-            os.path.getsize(os.path.join(dirpath, filename))
-            for dirpath, _, filenames in os.walk(path)
-            for filename in filenames
-        )
-    else:
-        raise ValueError("Invalid path")
+def get_package_names(requirements_file_path):
+    """
+    Return package names listed in the given requirements.txt
 
-    if unit == "bytes":
-        return size
-    elif unit == "KB":
-        return size / 1024
-    elif unit == "MB":
-        return size / (1024**2)
-    elif unit == "GB":
-        return size / (1024**3)
-    else:
-        raise ValueError("Invalid unit")
+    Args:
+        requirements_file_path (str)
+
+    Returns:
+        package_names (list(str)): return list of package names in requirements_file_path
+    """
+    package_names = []
+    with open(requirements_file_path, "r") as file:
+        for line in file:
+            line = line.strip()
+            if line and not line.startswith(IGNORE_START_WITH):
+                package_name = line
+                for op in VERSION_OPERATORS:
+                    if op in line:
+                        package_name = re.split(
+                            f"\s*{re.escape(op)}\s*", package_name, maxsplit=1
+                        )[0]
+
+                package_names.append(package_name.strip())
+
+    return package_names
+
+
+def get_installed_versions(package_names):
+    """
+    Return a dict of packages and their versions in the current environment
+
+    Args:
+        package_names (list(str))
+
+    Returns:
+        installed_versions (dict): {package_name: version}, version will be None
+            if package_name is not found.
+    """
+    installed_versions = {}
+    for package_name in package_names:
+        result = subprocess.run(
+            ["pip", "show", package_name], capture_output=True, text=True
+        )
+        output = result.stdout.strip()
+        lines = output.split("\n")
+        version_line = [line for line in lines if line.startswith("Version:")]
+
+        if version_line:
+            version = version_line[0].split(": ")[1].strip()
+            installed_versions[package_name] = version
+        else:
+            installed_versions[package_name] = None
+
+    return installed_versions
+
+
+def print_package_versions(requirements_file_path="requirements.txt"):
+    """
+    Print packages listed in requirements file and their version
+
+    Args:
+        requirements_file_path (str)
+    """
+    package_names = get_package_names(requirements_file_path)
+    installed_versions = get_installed_versions(package_names)
+
+    for package_name, version in installed_versions.items():
+        if version is None:
+            print(f"# {package_name}")
+        else:
+            print(f"{package_name}=={version}")
