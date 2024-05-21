@@ -2,7 +2,14 @@
 
 
 
-## v1.12.3 (2024-05-21)
+## v1.12.4 (2024-05-21)
+
+### Fix
+
+* fix: update ci ([`a019673`](https://github.com/egliette/kano/commit/a019673d3deb2650ca925cb7e199385477588871))
+
+
+## v1.12.3 (2024-05-20)
 
 ### Performance
 
