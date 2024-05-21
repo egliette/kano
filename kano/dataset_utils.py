@@ -4,20 +4,25 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-import tqdm
 import yaml
 
 from kano.detect_utils import draw_bbox, xywh2xyxy
 from kano.file_utils import create_folder, list_files
 from kano.image_utils import concatenate_images, show_image
+from kano.pose_utils import draw_skeleton
+
+TASKS = ["detect", "pose"]
 
 
 class YoloImage:
 
-    def __init__(self, image_path, labels_dict=None):
+    def __init__(self, image_path, labels_dict=None, task="detect"):
         self.image = cv2.imread(image_path)
         self.image_path = image_path
         self.label_path = self.get_label_path(image_path)
+        if task not in TASKS:
+            raise ValueError("Unexpected task. Please provide one of:", TASKS)
+        self.task = task
         self.labels = self.get_labels(self.label_path)
         self.labels_dict = labels_dict
 
@@ -45,6 +50,25 @@ class YoloImage:
                     [image_width, image_height, image_width, image_height]
                 )
                 label["xyxy"] = xywh2xyxy(xywh)
+
+                if self.task == "pose":
+                    keypoints = list()
+                    for start_id in range(5, len(line), 3):
+                        # "state" in [0, 1, 2] with:
+                        # - 0: deleted
+                        # - 1: occluded
+                        # - 2: visible
+                        x = int(float(line[start_id]) * image_width)
+                        y = int(float(line[start_id + 1]) * image_height)
+                        state = int(line[start_id + 2])
+                        keypoints.append(
+                            {
+                                "xy": (x, y),
+                                "state": state,
+                            }
+                        )
+                    label["keypoints"] = keypoints
+
                 labels.append(label)
         return labels
 
@@ -54,10 +78,17 @@ class YoloImage:
     def get_annotated_image(self):
         annotated_image = self.image.copy()
         for label in self.labels:
+
+            if self.task == "pose":
+                annotated_image = draw_skeleton(
+                    annotated_image, label["keypoints"]
+                )
+
             cls = label["class"]
             if self.labels_dict is not None:
                 cls = self.labels_dict[cls]
             bbox = label["s_xywh"]
+
             annotated_image = draw_bbox(
                 annotated_image, bbox, "s_xywh", (0, 255, 0), str(cls)
             )
@@ -103,13 +134,16 @@ class YoloImage:
 
 class YoloDataset:
 
-    def __init__(self, dataset_path):
+    def __init__(self, dataset_path, task="detect"):
         self.dataset_path = Path(dataset_path)
         self.name = self.dataset_path.name
         self.train_folder = self.dataset_path / "train"
         self.valid_folder = self.dataset_path / "valid"
         self.test_folder = self.dataset_path / "test"
         self.classes = self.get_classes(str(self.dataset_path / "data.yaml"))
+        if task not in TASKS:
+            raise ValueError("Unexpected task. Please provide one of:", TASKS)
+        self.task = task
 
     @classmethod
     def get_classes(cls, yaml_path):
@@ -294,12 +328,14 @@ class YoloDataset:
                     target_folder_path = renamed_folder_path / subset_name
                     create_folder(target_folder_path / "images")
                     create_folder(target_folder_path / "labels")
-                    yolo_image.copy_to(target_folder_path, f"{self.name}_")
+                    yolo_image.copy_to(
+                        target_folder_path, f"{self.name}_", reindex_dict
+                    )
 
         self._create_simple_yaml_file(str(renamed_folder_path), target_classes)
         YoloDataset(str(renamed_folder_path)).summary()
 
-    def show_sample(self):
+    def show_sample(self, figsize=(10, 10)):
         images_paths = list()
         for folder_path in [
             self.train_folder,
@@ -311,13 +347,18 @@ class YoloDataset:
 
         random.shuffle(images_paths)
 
+        labels_dict = {
+            i: class_name for i, class_name in enumerate(self.classes)
+        }
         annotated_images = list()
         for i in range(3):
             annotated_images.append(list())
             for j in range(3):
-                yolo_image = YoloImage(images_paths[i * 3 + j])
+                yolo_image = YoloImage(
+                    images_paths[i * 3 + j], labels_dict, self.task
+                )
                 annotated_images[i].append(yolo_image.get_annotated_image())
 
         concatenated_images = concatenate_images(annotated_images)
 
-        show_image(concatenated_images, figsize=(10, 10))
+        show_image(concatenated_images, figsize=figsize)
