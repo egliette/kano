@@ -2,7 +2,14 @@
 
 
 
-## v1.12.4 (2024-05-21)
+## v1.13.0 (2024-05-21)
+
+### Feature
+
+* feat: add utilities for pose estimation ([`553d4ea`](https://github.com/egliette/kano/commit/553d4ea22bf498c6de0149757b66fb25ca28cb55))
+
+
+## v1.12.4 (2024-05-20)
 
 ### Fix
 
