@@ -2,6 +2,13 @@
 
 
 
+## v1.12.3 (2024-05-21)
+
+### Performance
+
+* perf: optimize foldertree, adding dataset_utils to handle YOLO datasets ([`c92d131`](https://github.com/egliette/kano/commit/c92d131dffd1007edc91e142dc4d4b676c0ad1f1))
+
+
 ## v1.12.2 (2024-04-04)
 
 ### Fix
