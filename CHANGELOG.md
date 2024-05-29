@@ -2,6 +2,13 @@
 
 
 
+## v1.13.2 (2024-05-29)
+
+### Fix
+
+* fix: fix index in show_sample ([`97ed2e1`](https://github.com/egliette/kano/commit/97ed2e1a2ce17b03edfae925dae424c14b89bed5))
+
+
 ## v1.13.1 (2024-05-29)
 
 ### Fix
