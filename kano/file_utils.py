@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 import subprocess
+import uuid
 import zipfile
 from pathlib import Path
 
@@ -18,6 +19,11 @@ VERSION_OPERATORS = [
 ]
 
 IGNORE_START_WITH = ('"', "#", "-", "git+")
+
+
+def generate_random_filename():
+    random_uuid = uuid.uuid4()
+    return str(random_uuid)
 
 
 def get_size(path, unit="bytes"):
@@ -47,6 +53,16 @@ def get_size(path, unit="bytes"):
 
 
 def list_files(folder_path, return_absolute_paths=True):
+    """
+    List files in a folder.
+
+    Args:
+        folder_path (str): Path to the folder.
+        return_absolute_paths (bool): Whether to return absolute paths or relative paths.
+
+    Returns:
+        sorted_files_paths (list): A list of file paths.
+    """
     folder_path = Path(folder_path)
     items = list(folder_path.iterdir())
 
@@ -62,6 +78,16 @@ def list_files(folder_path, return_absolute_paths=True):
 
 
 def list_folders(folder_path, return_absolute_paths=True):
+    """
+    List folders in a folder.
+
+    Args:
+        folder_path (str): Path to the folder.
+        return_absolute_paths (bool): Whether to return absolute paths or relative paths.
+
+    Returns:
+        sorted_folders_paths (list): A list of folder paths.
+    """
     folder_path = Path(folder_path)
     items = list(folder_path.iterdir())
 
@@ -92,6 +118,15 @@ def get_folder_details(folder_path):
 
 
 def print_foldertree(folder_path, level=0, max_level=1, verbose=True):
+    """
+    Print the folder tree structure.
+
+    Args:
+        folder_path (str): Path to the folder.
+        level (int): Current level to apply recursion, you do not need to provide this field.
+        max_level (int): Maximum level of folder tree.
+        verbose (bool): Whether to print additional details.
+    """
     if level == 0:
         current_line = f"{folder_path} "
         if verbose:
@@ -128,6 +163,13 @@ def print_foldertree(folder_path, level=0, max_level=1, verbose=True):
 
 
 def zip_paths(paths, output_zip):
+    """
+    Create a ZIP file containing specified paths.
+
+    Args:
+        paths (list): List of file or folder paths to be included in the ZIP file.
+        output_zip (str): Path to save the output ZIP file.
+    """
     with zipfile.ZipFile(output_zip, "w") as zipf:
         for path in paths:
             if os.path.isdir(path):
@@ -149,6 +191,12 @@ def zip_paths(paths, output_zip):
 
 
 def remove_folder(folder_path):
+    """
+    Remove a folder and its contents.
+
+    Args:
+        folder_path (str): Path to the folder to be removed.
+    """
     try:
         shutil.rmtree(folder_path)
         print(f"Folder '{folder_path}' and its contents removed successfully.")
@@ -157,6 +205,12 @@ def remove_folder(folder_path):
 
 
 def create_folder(folder_path):
+    """
+    Create a folder if it doesn't exist.
+
+    Args:
+        folder_path (str): Path to the folder to be created.
+    """
     os.makedirs(folder_path, exist_ok=True)
 
 
@@ -174,15 +228,6 @@ def split_file_path(file_path):
 
 
 def get_package_names(requirements_file_path):
-    """
-    Return package names listed in the given requirements.txt
-
-    Args:
-        requirements_file_path (str)
-
-    Returns:
-        package_names (list(str)): return list of package names in requirements_file_path
-    """
     package_names = []
     with open(requirements_file_path, "r") as file:
         for line in file:
@@ -201,16 +246,6 @@ def get_package_names(requirements_file_path):
 
 
 def get_installed_versions(package_names):
-    """
-    Return a dict of packages and their versions in the current environment
-
-    Args:
-        package_names (list(str))
-
-    Returns:
-        installed_versions (dict): {package_name: version}, version will be None
-            if package_name is not found.
-    """
     installed_versions = {}
     for package_name in package_names:
         result = subprocess.run(
@@ -231,10 +266,10 @@ def get_installed_versions(package_names):
 
 def print_package_versions(requirements_file_path="requirements.txt"):
     """
-    Print packages listed in requirements file and their version
+    Print packages listed in requirements file and their version in the current environment
 
     Args:
-        requirements_file_path (str)
+        requirements_file_path (str): path to a file contain packages names
     """
     package_names = get_package_names(requirements_file_path)
     installed_versions = get_installed_versions(package_names)

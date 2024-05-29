@@ -1,9 +1,5 @@
-import os
-
 import cv2
 import numpy as np
-
-from kano.image_utils import show_image
 
 
 def extract_bbox_area(image, bbox):
@@ -11,8 +7,8 @@ def extract_bbox_area(image, bbox):
     Return cropped image from the given bounding box area
 
     Args:
-        image (np.array): with shape (H, W, 3)
-        bbox (list or np.array): with shape (4,)
+        image (np.array) with shape (H, W, 3): image to extract the box
+        bbox (np.array) with shape (4,): xyxy location of the box
 
     Returns:
         cropped_image (np.array): with shape (new_H, new_W, 3) based on bbox
@@ -23,6 +19,16 @@ def extract_bbox_area(image, bbox):
 
 
 def xywh2xyxy(xywh):
+    """
+    Converts bounding box coordinates from (x_center, y_center, width, height) format to (x_min, y_min, x_max, y_max) format.
+
+    Args:
+        xywh (np.array) with shape (4,): A tuple containing (x_center, y_center, width, height) of the bounding box.
+
+    Returns:
+        xyxy (tuple(int)): xyxy location of the bounding box.
+    """
+
     x_center, y_center, bbox_width, bbox_height = xywh
     x_min = int(x_center - bbox_width / 2)
     y_min = int(y_center - bbox_height / 2)
@@ -35,6 +41,19 @@ def xywh2xyxy(xywh):
 def draw_bbox(
     image, bbox, bbox_type="xyxy", bbox_color=(0, 0, 255), label=None
 ):
+    """
+    Draws a bounding box on the image.
+
+    Args:
+        image (np.ndarray or str): The image on which the bounding box will be drawn.
+        bbox (list or np.ndarray): The bounding box coordinates. If it's a list, it should be in the format specified by bbox_type.
+        bbox_type (str): Type of bounding box coordinates. Should be either "xyxy" or "xywh" or "s_xywh".
+        bbox_color (tuple): Color of the bounding box in BGR format.
+        label (str, optional): Label to be displayed alongside the bounding box.
+
+    Returns:
+        temp_image (np.ndarray): Image with the bounding box drawn.
+    """
     if isinstance(image, str):
         temp_image = cv2.imread(image)
     else:
@@ -155,59 +174,3 @@ def get_failed_detected_results(labels, predictions, iou_threshold=0.5):
         checked_prediction_indicies.append(index)
 
     return FailedDetectionTypes.Nothing
-
-
-class YoloImage:
-
-    def __init__(self, image_path, labels_dict=None):
-        self.image = cv2.imread(image_path)
-        self.image_path = image_path
-        self.label_path = self.get_label_path(image_path)
-        self.labels = self.get_labels(self.label_path)
-        self.labels_dict = labels_dict
-
-    def get_label_path(self, image_path):
-        images_folder_path, image_filename = os.path.split(image_path)
-        dataset_path = os.path.dirname(images_folder_path)
-        labels_folder_path = os.path.join(dataset_path, "labels")
-        label_filename = image_filename[:-4] + ".txt"
-        label_path = os.path.join(labels_folder_path, label_filename)
-
-        return label_path
-
-    def get_labels(self, label_path):
-        labels = list()
-        image_height, image_width = self.image.shape[:2]
-        with open(label_path, "r") as file:
-            for line in file:
-                line = line.strip().split()
-                label = {
-                    "class": int(line[0]),
-                    "s_xywh": np.array([float(x) for x in line[1:5]]),
-                }
-                xywh = label["s_xywh"].copy() * np.array(
-                    [image_width, image_height, image_width, image_height]
-                )
-                label["xyxy"] = xywh2xyxy(xywh)
-                labels.append(label)
-        return labels
-
-    def show_image(self, figsize=(10, 10)):
-        show_image(self.image, figsize)
-
-    def get_annotated_image(self):
-        annotated_image = self.image.copy()
-        for __, label in enumerate(self.labels):
-            cls = label["class"]
-            if self.labels_dict is not None:
-                cls = self.labels_dict[cls]
-            bbox = label["s_xywh"]
-            annotated_image = draw_bbox(
-                annotated_image, bbox, "s_xywh", (0, 255, 0), str(cls)
-            )
-
-        return annotated_image
-
-    def show_annotated_image(self, figsize=(10, 10)):
-        annotated_image = self.get_annotated_image()
-        show_image(annotated_image, figsize)

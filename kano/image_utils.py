@@ -7,14 +7,21 @@ import numpy as np
 import requests
 
 
-def show_image(image, figsize=None):
+def show_image(image, figsize=(10, 10)):
+    """
+    Show image from a numpy array or a file path.
+    Which can be used when run .py or .ipynb files.
+
+    Args:
+        image (Union[np.ndarray, str]): a numpy array or a file path
+        figsize (Tuple[int, int]): (width, height) for image to show
+    """
     if isinstance(image, str):
         temp_image = cv2.imread(image)
     else:
         temp_image = image.copy()
 
-    if figsize:
-        plt.figure(figsize=figsize)
+    plt.figure(figsize=figsize)
     temp_image = cv2.cvtColor(temp_image.astype(np.uint8), cv2.COLOR_BGR2RGB)
     plt.imshow(temp_image)
     plt.show()
@@ -25,6 +32,17 @@ def save_image(image, save_path):
 
 
 def download_image(url, save_path=None):
+    """
+    Download image from given url
+
+    Args:
+        url (str): url of the image
+        save_path (str): path to save image
+
+    Returns:
+        image (Union[np.ndarray, NoneType]): return numpy array of the image if
+            it's downloaded successfullly. Otherwise return None
+    """
     response = requests.get(url)
     if response.status_code == 200:
         image_stream = BytesIO(response.content)
@@ -41,6 +59,17 @@ def download_image(url, save_path=None):
 
 
 def get_random_image(width=400, height=300, save_path=None):
+    """
+    Download a random image with desired size
+
+    Args:
+        width (int): desired width
+        height (int): desired height
+        save_path (str): path to save image
+
+    Returns:
+        image (np.ndarray): numpy array of the downloaded image
+    """
     image = download_image(
         f"https://picsum.photos/{width}/{height}", save_path
     )
@@ -48,6 +77,18 @@ def get_random_image(width=400, height=300, save_path=None):
 
 
 def rotate_image(image, degree, expand=False):
+    """
+    Rotate the given image with given degree
+
+    Args:
+        image (np.ndarray): numpy array of the image
+        degree (float): total degrees to rotate
+        expand (bool): Pad rotated image with black color if True,
+            otherwise return the cropped rotated image
+
+    Returns:
+        rotated_image (np.ndarray): numpy array of the rotated image
+    """
     height, width = image.shape[:2]
     center_point = (width / 2, height / 2)
 
@@ -129,6 +170,18 @@ def pad_image(image, target_size):
 
 
 def concatenate_images(image_list, padding_size=0):
+    """
+    Concatenate images based on its appearance order in the given 2D list
+    Each image will be padded to the max height, max width in the given list.
+
+    Args:
+        image_list (list(list(np.ndarray))): 2D (or 1D) list of images
+        padding_size (int): padding distance between each image
+
+    Returns:
+        concatenated_image (np.ndarray): the concatenated image from 2D list
+    """
+
     # ensure image_list is a 2D list
     new_image_list = copy.deepcopy(image_list)
     if not isinstance(image_list[0], list):

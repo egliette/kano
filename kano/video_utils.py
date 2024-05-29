@@ -1,6 +1,5 @@
 import copy
 import os
-import uuid
 
 import cv2
 import numpy as np
@@ -8,22 +7,34 @@ import tqdm
 from moviepy.editor import VideoFileClip
 from pytube import YouTube
 
-from kano.file_utils import create_folder
+from kano.file_utils import create_folder, generate_random_filename
 from kano.image_utils import concatenate_images
 
 
-def generate_random_filename():
-    random_uuid = uuid.uuid4()
-    return str(random_uuid)
+def download_youtube_video(url, save_path):
+    """
+    Download a video from youtube
 
-
-def download_youtube_video(url, filename):
+    Args:
+        url (str): url of a youtube video
+        save_path (str): path to save the video
+    """
     yt = YouTube(url)
     video_stream = yt.streams.get_highest_resolution()
-    video_stream.download(filename=filename)
+    video_stream.download(filename=save_path)
 
 
 def get_frame_at_second(video_path, target_second):
+    """
+    Get numpy array of a frame from a video at the given second
+
+    Args:
+        video_path (str): path of the video
+        target_second (int): second timestamp to get frame
+
+    Returns:
+        frame (np.ndarray): numpy array of the frame at the given second
+    """
     cap = cv2.VideoCapture(video_path)
 
     if not cap.isOpened():
@@ -45,6 +56,14 @@ def get_frame_at_second(video_path, target_second):
 
 
 def extract_frames(video_path, target_folder, seconds_interval):
+    """
+    Extract frames from a video with a given seconds interval
+
+    Args:
+        video_path (str): path of the video
+        target_folder (str): path to save extracted frames
+        seconds_interval (float): amount of seconds between two extracted frames
+    """
     cap = cv2.VideoCapture(video_path)
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     video_fps = cap.get(cv2.CAP_PROP_FPS)
@@ -66,6 +85,15 @@ def extract_frames(video_path, target_folder, seconds_interval):
 
 
 def cut_video(input_video_path, output_video_path, start_second, end_second):
+    """
+    Cut a segment from a video file and save it as a new video.
+
+    Args:
+        input_video_path (str): Path to the input video file.
+        output_video_path (str): Path to save the output video file.
+        start_second (float): Start time of the segment to be cut in seconds.
+        end_second (float): End time of the segment to be cut in seconds.
+    """
     cap = cv2.VideoCapture(input_video_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -135,6 +163,19 @@ def concatenate_videos(
     title_padding_size=10,
     frame_padding_size=10,
 ):
+    """
+    Concatenate multiple video files into a single video.
+
+    Args:
+        video_paths (list): A 2D list of video file paths to be concatenated.
+        titles (list): A 2D list of titles corresponding to each video segment.
+        output_video_path (str): Path to save the concatenated video file.
+        total_seconds (float): Total duration of the output video in seconds.
+        font_scale (int): Font scale for titles.
+        font_thickness (int): Font thickness for titles.
+        title_padding_size (int): Padding size for titles.
+        frame_padding_size (int): Padding size between frames.
+    """
     # ensure video_paths is a 2D list
     new_video_paths = copy.deepcopy(video_paths)
     if not isinstance(video_paths[0], list):

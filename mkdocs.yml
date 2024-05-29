@@ -10,7 +10,9 @@ theme:
   palette:
     primary: pink
   features:
+    - content.code.annotate
     - content.code.copy
+    - content.tooltips
     - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
@@ -28,10 +30,21 @@ nav:
     - Common utilities:
         - common/index.md
         - Image: common/image_utils.md
+        - Video: common/video_utils.md
+        - File: common/file_utils.md
+    - Computer Vision tasks:
+        - Dataset: cv/dataset_utils.md
+        - Object detection: cv/detect_utils.md
 
   - Common:
     - common/index.md
     - Image: common/image_utils.md
+    - Video: common/video_utils.md
+    - File: common/file_utils.md
+
+  - Computer Vision:
+    - Dataset: cv/dataset_utils.md
+    - Object detection: cv/detect_utils.md
 
 
 markdown_extensions:
@@ -45,3 +58,18 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+
+plugins:
+- search
+- mkdocstrings:
+    enabled: true
+    default_handler: python
+    handlers:
+      python:
+        options:
+          docstring_style: google
+          show_root_heading: true
+          show_source: true
+
+extra_css:
+  - overrides/stylesheets/style.css

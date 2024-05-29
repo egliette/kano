@@ -5,9 +5,10 @@ import numpy as np
 
 def get_bounding_box_of_mask(mask):
     """
-    Input:
+    Args:
         mask (2D numpy array): the value of mask is 0 and 1
-    Output:
+
+    Returns:
         top_left_point (numpy array with shape = (2,)): coordinate of bbox
         bottom_right_point (numpy array with shape = (2,)): coordinate of bbox
     """
