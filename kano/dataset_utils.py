@@ -538,9 +538,7 @@ class YoloDataset:
         else:
             total_images = min(3, len(images_paths))
             for i in range(total_images):
-                yolo_image = YoloImage(
-                    images_paths[i * 3 + j], labels_dict, self.task
-                )
+                yolo_image = YoloImage(images_paths[i], labels_dict, self.task)
                 annotated_images.append(yolo_image.get_annotated_image())
 
         concatenated_images = concatenate_images(annotated_images)
