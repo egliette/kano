@@ -2,7 +2,14 @@
 
 
 
-## v1.13.0 (2024-05-21)
+## v1.13.1 (2024-05-29)
+
+### Fix
+
+* fix: fix dataset show_sample when the number of images is less than 9 ([`f22fd7b`](https://github.com/egliette/kano/commit/f22fd7b5cb03c9ff7d779be99d757d8f9b5e3df9))
+
+
+## v1.13.0 (2024-05-20)
 
 ### Feature
 
