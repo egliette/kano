@@ -33,6 +33,7 @@ nav:
         - Video: common/video_utils.md
         - File: common/file_utils.md
     - Computer Vision tasks:
+        - cv/index.md
         - Dataset: cv/dataset_utils.md
         - Object detection: cv/detect_utils.md
 
@@ -43,6 +44,7 @@ nav:
     - File: common/file_utils.md
 
   - Computer Vision:
+    - cv/index.md
     - Dataset: cv/dataset_utils.md
     - Object detection: cv/detect_utils.md
 

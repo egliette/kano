@@ -449,6 +449,7 @@ class YoloDataset:
         Returns:
             renamed_dataset_path (str): Path to the folder where the renamed dataset will be saved.
             renaming_dict (dict): Dictionary mapping original class names to new class names.
+                To remove classes, set the classes' values to None.
         """
 
         self.summary()
