@@ -2,7 +2,14 @@
 
 
 
-## v2.0.0 (2024-05-30)
+## v3.0.0 (2024-05-30)
+
+### Fix
+
+* fix: add links to the document ([`754e806`](https://github.com/egliette/kano/commit/754e80618a42874661a379ac93be601e42c3a39d))
+
+
+## v2.0.0 (2024-05-29)
 
 ### Unknown
 
