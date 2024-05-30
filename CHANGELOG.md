@@ -2,7 +2,14 @@
 
 
 
-## v3.0.0 (2024-05-30)
+## v3.0.1 (2024-05-30)
+
+### Fix
+
+* fix: fix indentst ([`3978e77`](https://github.com/egliette/kano/commit/3978e7725fb699c83732c9738793babe86a6d06d))
+
+
+## v3.0.0 (2024-05-29)
 
 ### Fix
 
