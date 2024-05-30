@@ -2,7 +2,20 @@
 
 
 
-## v1.13.3 (2024-05-30)
+## v2.0.0 (2024-05-30)
+
+### Unknown
+
+* BREAKING CHANGE: update index.md for document ([`98abcf6`](https://github.com/egliette/kano/commit/98abcf6af97d66fac2626920f8dbd75554bf8366))
+
+* major: update index.md for document ([`dbab44d`](https://github.com/egliette/kano/commit/dbab44df3e0c4f2fe75fb4b48454a9d614b87ec5))
+
+* major: update index.md for document ([`b2964e3`](https://github.com/egliette/kano/commit/b2964e3ad3c675111128c735e537b95e2baf98a1))
+
+* major:update index.md for document ([`6da90c1`](https://github.com/egliette/kano/commit/6da90c18d4130a063a7df7bd0f8f4571753819b1))
+
+
+## v1.13.3 (2024-05-29)
 
 ### Fix
 
