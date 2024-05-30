@@ -2,6 +2,21 @@
 
 
 
+## v1.13.3 (2024-05-30)
+
+### Fix
+
+* fix: fix name in index.md ([`b745981`](https://github.com/egliette/kano/commit/b745981c869eaebfb072b7a4b407d2ffcab9f602))
+
+### Unknown
+
+* major: add document ([`bfcf702`](https://github.com/egliette/kano/commit/bfcf702081f97538f7cad2e393a95ab582d56f16))
+
+* major: add document, refactor code foldertree, add comments ([`55da071`](https://github.com/egliette/kano/commit/55da071dab765ffbbecd1518c9399f416940e41d))
+
+* BREAKING CHANGE: add document, refactor code foldertree, add comments ([`13887a5`](https://github.com/egliette/kano/commit/13887a5d4a10820320adca9179a5cf34cab20d37))
+
+
 ## v1.13.2 (2024-05-29)
 
 ### Fix
