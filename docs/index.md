@@ -2,7 +2,7 @@
 
 # 🦌 Kano - Utilities for your Computer Vision Projects
 
-![banner image](img/banner.png)
+![banner](img/banner.png)
 
 **Kano** is a Python package providing utility functions for Computer Vision tasks. Its primary focus is simplifying lengthy functions, allowing developers to concentrate more on the main processes.
 
