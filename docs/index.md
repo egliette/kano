@@ -19,9 +19,9 @@ pip install kano-cv
 **Kano** currently provides utilities for these groups:
 
 - [Common tasks](https://egliette.github.io/kano/common/):
-  - [Images Processing](https://egliette.github.io/kano/common/image_utils/)
-  - [Videos Processing](https://egliette.github.io/kano/common/video_utils/)
-  - [Files/Folders Manipulating](https://egliette.github.io/kano/common/file_utils/)
+    - [Images Processing](https://egliette.github.io/kano/common/image_utils/)
+    - [Videos Processing](https://egliette.github.io/kano/common/video_utils/)
+    - [Files/Folders Manipulating](https://egliette.github.io/kano/common/file_utils/)
 - [Computer vision tasks](https://egliette.github.io/kano/cv/):
     - [YOLO-formatted Dataset](https://egliette.github.io/kano/cv/dataset_utils/)
     - [Object Detection](https://egliette.github.io/kano/cv/detect_utils/)
