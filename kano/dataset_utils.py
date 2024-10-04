@@ -262,31 +262,32 @@ class YoloDataset:
             data = yaml.safe_load(file)
         return data["names"]
 
-    def summary(self):
+    def summary(self, count_box=False):
         """
         Print summary information about the dataset.
         """
         print(f"Summary dataset {self.dataset_path.name}:")
         print("- Classes: ", self.classes)
-        images_paths = list()
-        for folder_path in [
-            self.train_folder,
-            self.valid_folder,
-            self.test_folder,
-        ]:
-            if folder_path.exists():
-                images_paths += list_files(str(folder_path / "images"))
 
-        box_counts = {cls_name: 0 for cls_name in self.classes}
-        for img_path in images_paths:
-            img = YoloImage(image_path=img_path)
-            labels = img.get_labels()
-            for label in labels:
-                cls_name = self.classes[label["class"]]
-                box_counts[cls_name] += 1
+        if count_box:
+            images_paths = list()
+            for folder_path in [
+                self.train_folder,
+                self.valid_folder,
+                self.test_folder,
+            ]:
+                if folder_path.exists():
+                    images_paths += list_files(str(folder_path / "images"))
 
-        for cls_name, box_count in box_counts.items():
-            print(f"  + {cls_name}: {box_count}")
+            box_counts = {cls_name: 0 for cls_name in self.classes}
+            for img_path in images_paths:
+                labels = YoloImage(image_path=img_path).get_labels()
+                for label in labels:
+                    cls_name = self.classes[label["class"]]
+                    box_counts[cls_name] += 1
+
+            for cls_name, box_count in box_counts.items():
+                print(f"  + {cls_name}: {box_count} boxes")
 
         print("- Subsets:")
         total_file_count = 0
