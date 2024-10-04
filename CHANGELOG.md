@@ -2,6 +2,13 @@
 
 
 
+## v3.1.1 (2024-10-04)
+
+### Fix
+
+* fix: fix cannot import kano module ([`33c2bd2`](https://github.com/egliette/kano/commit/33c2bd23488a0ccf9d5cae442fcf6d2d9109d435))
+
+
 ## v3.1.0 (2024-10-04)
 
 ### Feature
