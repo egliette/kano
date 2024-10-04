@@ -2,7 +2,14 @@
 
 
 
-## v3.0.1 (2024-05-30)
+## v3.1.0 (2024-10-04)
+
+### Feature
+
+* feat: add classes boxes counting when show summary of a dataset ([`6918438`](https://github.com/egliette/kano/commit/6918438d3947d1c35bb64a0f750aa3be42f24c94))
+
+
+## v3.0.1 (2024-05-29)
 
 ### Fix
 
