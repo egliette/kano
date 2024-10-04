@@ -270,6 +270,9 @@ class YoloDataset:
         print("- Classes: ", self.classes)
 
         if count_box:
+            print(
+                "  *Note: the box counting can take a long time depend on dataset size, please wait..."
+            )
             images_paths = list()
             for folder_path in [
                 self.train_folder,
