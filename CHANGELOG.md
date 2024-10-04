@@ -2,6 +2,13 @@
 
 
 
+## v3.1.2 (2024-10-04)
+
+### Fix
+
+* fix: allow locally editable install, only count boxes when specifying to reduce waiting time ([`a25fd3a`](https://github.com/egliette/kano/commit/a25fd3a32c9d7486ecf61ef2c15ed1c9fe5803d9))
+
+
 ## v3.1.1 (2024-10-04)
 
 ### Fix
