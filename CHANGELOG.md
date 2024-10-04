@@ -2,6 +2,13 @@
 
 
 
+## v3.1.3 (2024-10-04)
+
+### Fix
+
+* fix: add waiting note when counting box ([`d87a196`](https://github.com/egliette/kano/commit/d87a196066111b0b2cbfe82d0c09521ccf2d7049))
+
+
 ## v3.1.2 (2024-10-04)
 
 ### Fix
