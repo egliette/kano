@@ -71,6 +71,3 @@ version_toml = [
 major_tags = ["major"]
 minor_types = ["feat"]
 patch_types = ["fix"]
-
-[tool.setuptools]
-py-modules = []
