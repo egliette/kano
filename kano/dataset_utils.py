@@ -38,11 +38,10 @@ class YoloImage:
         """
         self.image = cv2.imread(image_path)
         self.image_path = image_path
-        self.label_path = self.get_label_path(image_path)
         if task not in TASKS:
             raise ValueError("Unexpected task. Please provide one of:", TASKS)
         self.task = task
-        self.labels = self.get_labels(self.label_path)
+        self.labels = self.get_labels()
         self.labels_dict = labels_dict
 
     def get_label_path(self, image_path):
@@ -64,7 +63,7 @@ class YoloImage:
 
         return str(label_path)
 
-    def get_labels(self, label_path):
+    def get_labels(self):
         """
         Parse the label file and extract label information.
         Each label can contain:
@@ -73,15 +72,13 @@ class YoloImage:
             - xyxy: xyxy box
             - keypoints: list of dict(xy, state) for pose estimation tasks
 
-        Args:
-            label_path (str): Path to the label file.
-
         Returns:
             labels (list): List of dictionaries, each containing label information.
         """
+        self.label_path = self.get_label_path(self.image_path)
         labels = list()
         image_height, image_width = self.image.shape[:2]
-        with open(label_path, "r") as file:
+        with open(self.label_path, "r") as file:
             for line in file:
                 line = line.strip().split()
                 label = {
@@ -271,6 +268,26 @@ class YoloDataset:
         """
         print(f"Summary dataset {self.dataset_path.name}:")
         print("- Classes: ", self.classes)
+        images_paths = list()
+        for folder_path in [
+            self.train_folder,
+            self.valid_folder,
+            self.test_folder,
+        ]:
+            if folder_path.exists():
+                images_paths += list_files(str(folder_path / "images"))
+
+        box_counts = {cls_name: 0 for cls_name in self.classes}
+        for img_path in images_paths:
+            img = YoloImage(image_path=img_path)
+            labels = img.get_labels()
+            for label in labels:
+                cls_name = self.classes[label["class"]]
+                box_counts[cls_name] += 1
+
+        for cls_name, box_count in box_counts.items():
+            print(f"  + {cls_name}: {box_count}")
+
         print("- Subsets:")
         total_file_count = 0
         for folder_path in [
