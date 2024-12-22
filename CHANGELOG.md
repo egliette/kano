@@ -2,6 +2,13 @@
 
 
 
+## v3.2.1 (2024-12-22)
+
+### Fix
+
+* fix: add a mixing dependency ([`f07ece9`](https://github.com/egliette/kano/commit/f07ece9d7478211487730b295ecbdabd38fb1581))
+
+
 ## v3.2.0 (2024-12-22)
 
 ### Feature
