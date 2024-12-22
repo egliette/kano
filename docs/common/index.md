@@ -72,19 +72,6 @@ Result:
 
 ## Video tasks
 
-### Download youtube videos from urls
-
-This function used [pytube](https://github.com/pytube/pytube) library to download youtube video.
-
-``` py
-from kano.video_utils import download_youtube_video
-
-
-download_youtube_video("https://youtu.be/wc-wPvawmj8", "video_1.mp4")
-download_youtube_video("https://youtube.com/shorts/TJVXPkvSPck", "video_2.mp4")
-download_youtube_video("https://youtube.com/shorts/-QCs2GSLLUM", "video_3.mp4")
-```
-
 ### Extract frames from a video
 
 Extract frames with a `seconds_interval` between each pair of consecutive frames, placed one after the other

@@ -27,3 +27,5 @@ pip install kano-cv
     - [Object Detection](https://egliette.github.io/kano/cv/detect_utils/)
     - Pose Estimation (In progress)
     - Object Segmentation (In progress)
+    - [Profiling](https://egliette.github.io/kano/cv/profiler/)
+    - [Source Reader](https://egliette.github.io/kano/cv/source_reader/)

@@ -47,6 +47,8 @@ nav:
     - cv/index.md
     - Dataset: cv/dataset_utils.md
     - Object detection: cv/detect_utils.md
+    - Profiling: cv/profiler.md
+    - Source reader: cv/source_reader.md
 
 
 markdown_extensions:

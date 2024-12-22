@@ -2,14 +2,11 @@
 
 **Kano** provides some video-related functions:
 
-- `download_youtube_video`: download a video from youtube url.
 - `get_frame_at_second`: get a frame at the given second of a video.
 - `extract_frames`: save frames of a video.
 - `cut_video`: save a part of a video.
 - `concatenate_videos`: concatenate a 2-dimensional list of videos.
 
-
-::: kano.video_utils.download_youtube_video
 
 ::: kano.video_utils.get_frame_at_second
 

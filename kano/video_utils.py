@@ -4,24 +4,9 @@ import os
 import cv2
 import numpy as np
 import tqdm
-from moviepy.editor import VideoFileClip
-from pytube import YouTube
 
-from kano.file_utils import create_folder, generate_random_filename
+from kano.file_utils import create_folder
 from kano.image_utils import concatenate_images
-
-
-def download_youtube_video(url, save_path):
-    """
-    Download a video from youtube
-
-    Args:
-        url (str): url of a youtube video
-        save_path (str): path to save the video
-    """
-    yt = YouTube(url)
-    video_stream = yt.streams.get_highest_resolution()
-    video_stream.download(filename=save_path)
 
 
 def get_frame_at_second(video_path, target_second):
@@ -103,8 +88,7 @@ def cut_video(input_video_path, output_video_path, start_second, end_second):
     end_frame = int(end_second * fps)
 
     fourcc = cv2.VideoWriter_fourcc(*"XVID")
-    temp_file_path = generate_random_filename() + ".avi"
-    out = cv2.VideoWriter(temp_file_path, fourcc, fps, (width, height))
+    out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
 
     cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
     while cap.isOpened() and cap.get(cv2.CAP_PROP_POS_FRAMES) <= end_frame:
@@ -115,11 +99,6 @@ def cut_video(input_video_path, output_video_path, start_second, end_second):
 
     cap.release()
     out.release()
-
-    clip = VideoFileClip(temp_file_path)
-    clip.write_videofile(output_video_path, codec="libx264", fps=clip.fps)
-
-    os.remove(temp_file_path)
 
 
 def add_title(
@@ -224,9 +203,8 @@ def concatenate_videos(
         max_height + (text_size[1] + title_padding_size * 2)
     ) * rows + frame_padding_size * (rows - 1)
 
-    temp_file_path = generate_random_filename() + ".avi"
     output_video = cv2.VideoWriter(
-        temp_file_path, fourcc, fps, (output_width, output_height)
+        output_video_path, fourcc, fps, (output_width, output_height)
     )
     num_frames = int(min_duration * fps)
 
@@ -269,10 +247,3 @@ def concatenate_videos(
                 cap.release()
 
     output_video.release()
-
-    print("Preparing output video...")
-    clip = VideoFileClip(temp_file_path)
-    clip.write_videofile(
-        output_video_path, codec="libx264", fps=clip.fps, logger=None
-    )
-    os.remove(temp_file_path)
