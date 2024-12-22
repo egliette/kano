@@ -216,9 +216,6 @@ Result:
 ![image with box](../img/cv/draw_box.png)
 
 
-
-## Resource Profiling and FPS Tracking
-
 ## Track FPS of your pipeline with FPSCounter Class
 
 The `FPSCounter` class tracks the number of frames processed over time and computes the FPS. It also provides an option to print FPS at specified intervals and ensure that the FPS does not exceed a target value.
