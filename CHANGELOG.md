@@ -2,6 +2,13 @@
 
 
 
+## v3.2.3 (2024-12-22)
+
+### Fix
+
+* fix: fix docs ([`caae42f`](https://github.com/egliette/kano/commit/caae42fdc6aff62b63d033b8ab0feda79fecfec5))
+
+
 ## v3.2.2 (2024-12-22)
 
 ### Fix
