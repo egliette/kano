@@ -2,6 +2,13 @@
 
 
 
+## v3.2.0 (2024-12-22)
+
+### Feature
+
+* feat: remove youtube video downloading function and mp4 auto converting when write video, add FPS, CPU, RAM profiler and video streamer classes ([`edf01e6`](https://github.com/egliette/kano/commit/edf01e68cb4edad4d487627348509c70c412459d))
+
+
 ## v3.1.3 (2024-10-04)
 
 ### Fix
