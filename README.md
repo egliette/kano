@@ -27,7 +27,8 @@ Explore the [Kano Document](https://egliette.github.io/kano/) to learn how to us
     - [Object Detection](https://egliette.github.io/kano/cv/detect_utils/)
     - Pose Estimation (In progress)
     - Object Segmentation (In progress)
-
+    - [Profiling](https://egliette.github.io/kano/cv/profiler/)
+    - [Source Reader](https://egliette.github.io/kano/cv/source_reader/)
 
 
 ## 🙋‍♂️ Contributing to Kano
