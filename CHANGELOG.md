@@ -2,6 +2,15 @@
 
 
 
+## v3.2.2 (2024-12-22)
+
+### Fix
+
+* fix: update README ([`c8756ee`](https://github.com/egliette/kano/commit/c8756ee56141717426cef1f4572aee99eaa0ba44))
+
+* fix: change banner ([`7a13dff`](https://github.com/egliette/kano/commit/7a13dff161f611f642ff783a5fddf765ecbdb7b0))
+
+
 ## v3.2.1 (2024-12-22)
 
 ### Fix
