@@ -17,7 +17,8 @@ keywords = ["computer vision"]
 dependencies = [
     "tqdm>=4.8",
     "numpy>=1.23",
-    "psutil>=5.9",
+    "psutil>=5.0",
+    "pandas>=2.0",
     "opencv-python>=4.9",
 ]
 requires-python = ">=3.9"
