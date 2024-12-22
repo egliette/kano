@@ -2,6 +2,13 @@
 
 
 
+## v3.2.4 (2024-12-22)
+
+### Fix
+
+* fix: fix sigstore version ([`867bb78`](https://github.com/egliette/kano/commit/867bb780eb80253fc9cce1774cd1dd4f79253ad0))
+
+
 ## v3.2.3 (2024-12-22)
 
 ### Fix
