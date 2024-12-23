@@ -2,6 +2,13 @@
 
 
 
+## v3.3.0 (2024-12-23)
+
+### Feature
+
+* feat: add responsive bbox for draw_bbox function ([`b74c3ae`](https://github.com/egliette/kano/commit/b74c3ae4c98326caa00bbe37a21f1d80f05b920d))
+
+
 ## v3.2.4 (2024-12-22)
 
 ### Fix
