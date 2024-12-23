@@ -82,8 +82,15 @@ def draw_bbox(
     cv2.rectangle(temp_image, (x_min, y_min), (x_max, y_max), bbox_color, 2)
     if label is not None:
         font = cv2.FONT_HERSHEY_SIMPLEX
-        font_scale = 1
-        thickness = 2
+        if image_height >= 1000:
+            font_scale = 1.5
+            thickness = 3
+        elif image_height >= 500:
+            font_scale = 1
+            thickness = 2
+        else:
+            font_scale = 0.75
+            thickness = 2
         (text_width, text_height), _ = cv2.getTextSize(
             label, font, font_scale, thickness
         )
