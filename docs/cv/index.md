@@ -34,8 +34,8 @@ image = YoloImage(image_path, label_dict)
 image.show_image()
 image.show_annotated_image()
 
-# or you can get the annotated image and show with image_utils
-from kano.image_utils import show_image
+# or you can get the annotated image and show
+from kano.image import show_image
 
 
 annotated_image = image.get_annotated_image()
@@ -197,7 +197,7 @@ You can add label for the bounding box. Current supported types of box are `xyxy
 
 ``` py
 import cv2
-from kano.image_utils import show_image
+from kano.image import show_image
 from kano.detect_utils import draw_bbox
 
 

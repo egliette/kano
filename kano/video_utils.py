@@ -6,7 +6,7 @@ import numpy as np
 import tqdm
 
 from kano.file_utils import create_folder
-from kano.image_utils import concatenate_images
+from kano.image import concatenate_images
 
 
 def get_frame_at_second(video_path, target_second):

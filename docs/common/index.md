@@ -14,7 +14,7 @@ When working on computer vision tasks, developers often find themselves spending
 The `show_image` code is compatible when running with both .py and .ipynb files.
 
 ```py
-from kano.image_utils import download_image, show_image
+from kano.image import download_image, show_image
 
 
 image = download_image("https://avatars.githubusercontent.com/u/77763935?v=4", "image.jpg")
@@ -33,7 +33,7 @@ Result:
 ### Download image with desired size
 
 ``` py
-from kano.image_utils import get_random_image
+from kano.image import get_random_image
 
 
 desired_image = get_random_image(width=400, height=300, save_path="random_image.jpg")
@@ -54,7 +54,7 @@ Result:
 The input images must be numpy arrays.
 
 ``` py
-from kano.image_utils import concatenate_images
+from kano.image import concatenate_images
 
 
 image_list = [

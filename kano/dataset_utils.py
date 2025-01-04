@@ -8,7 +8,7 @@ import yaml
 
 from kano.detect_utils import draw_bbox, xywh2xyxy
 from kano.file_utils import create_folder, list_files
-from kano.image_utils import concatenate_images, show_image
+from kano.image import concatenate_images, show_image
 from kano.pose_utils import draw_skeleton
 
 TASKS = ["detect", "pose"]

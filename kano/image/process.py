@@ -1,82 +1,13 @@
 import copy
-from io import BytesIO
+from typing import List, Optional
 
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
-import requests
 
 
-def show_image(image, figsize=(10, 10)):
-    """
-    Show image from a numpy array or a file path.
-    Which can be used when run .py or .ipynb files.
-
-    Args:
-        image (Union[np.ndarray, str]): a numpy array or a file path
-        figsize (Tuple[int, int]): (width, height) for image to show
-    """
-    if isinstance(image, str):
-        temp_image = cv2.imread(image)
-    else:
-        temp_image = image.copy()
-
-    plt.figure(figsize=figsize)
-    temp_image = cv2.cvtColor(temp_image.astype(np.uint8), cv2.COLOR_BGR2RGB)
-    plt.imshow(temp_image)
-    plt.show()
-
-
-def save_image(image, save_path):
-    cv2.imwrite(save_path, image)
-
-
-def download_image(url, save_path=None):
-    """
-    Download image from given url
-
-    Args:
-        url (str): url of the image
-        save_path (str): path to save image
-
-    Returns:
-        image (Union[np.ndarray, NoneType]): return numpy array of the image if
-            it's downloaded successfullly. Otherwise return None
-    """
-    response = requests.get(url)
-    if response.status_code == 200:
-        image_stream = BytesIO(response.content)
-        image_data = np.frombuffer(image_stream.read(), dtype=np.uint8)
-        image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
-
-        if save_path:
-            cv2.imwrite(save_path, image)
-
-        return image
-    else:
-        print(f"Failed to download image from {url}")
-        return None
-
-
-def get_random_image(width=400, height=300, save_path=None):
-    """
-    Download a random image with desired size
-
-    Args:
-        width (int): desired width
-        height (int): desired height
-        save_path (str): path to save image
-
-    Returns:
-        image (np.ndarray): numpy array of the downloaded image
-    """
-    image = download_image(
-        f"https://picsum.photos/{width}/{height}", save_path
-    )
-    return image
-
-
-def rotate_image(image, degree, expand=False):
+def rotate_image(
+    image: np.ndarray, degree: float, expand: bool = False
+) -> np.ndarray:
     """
     Rotate the given image with given degree
 
@@ -112,7 +43,10 @@ def rotate_image(image, degree, expand=False):
     return rotated_image
 
 
-def resize_with_black_padding(image, new_height, new_width):
+def resize_with_black_padding(
+    image: np.ndarray, new_height: int, new_width: int
+) -> np.ndarray:
+    """Resize the image with black padding to fit new dimensions."""
     original_height, original_width = image.shape[:2]
 
     if len(image.shape) == 3:
@@ -127,7 +61,14 @@ def resize_with_black_padding(image, new_height, new_width):
     return padded_image
 
 
-def shift_image(image, dx, dy, new_height=None, new_width=None):
+def shift_image(
+    image: np.ndarray,
+    dx: int,
+    dy: int,
+    new_height: Optional[int] = None,
+    new_width: Optional[int] = None,
+) -> np.ndarray:
+    """Shift the image by dx and dy, with optional resizing."""
     padded_image = image.copy()
 
     if new_height and new_width:
@@ -144,8 +85,8 @@ def shift_image(image, dx, dy, new_height=None, new_width=None):
     return shifted_image
 
 
-def pad_image(image, target_size):
-    # target_size = (height, width)
+def pad_image(image: np.ndarray, target_size: tuple) -> np.ndarray:
+    """Pad the image to the target size."""
     height, width = image.shape[:2]
 
     pad_height = max(0, target_size[0] - height)
@@ -169,7 +110,9 @@ def pad_image(image, target_size):
     return padded_image
 
 
-def concatenate_images(image_list, padding_size=0):
+def concatenate_images(
+    image_list: List[List[np.ndarray]], padding_size: int = 0
+) -> np.ndarray:
     """
     Concatenate images based on its appearance order in the given 2D list
     Each image will be padded to the max height, max width in the given list.

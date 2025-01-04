@@ -9,12 +9,12 @@
 - `concatenate_images`: concatenate a 2-dimensional list of images.
 
 
-::: kano.image_utils.show_image
+::: kano.image.show_image
 
-::: kano.image_utils.download_image
+::: kano.image.download_image
 
-::: kano.image_utils.get_random_image
+::: kano.image.get_random_image
 
-::: kano.image_utils.rotate_image
+::: kano.image.rotate_image
 
-::: kano.image_utils.concatenate_images
+::: kano.image.concatenate_images
