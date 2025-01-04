@@ -2,6 +2,13 @@
 
 
 
+## v3.4.1 (2025-01-04)
+
+### Fix
+
+* fix: fix VideoStream thread cannot stop after the program ([`6fbb895`](https://github.com/egliette/kano/commit/6fbb895e56314e5edcd9018cce2584cd5e22c51a))
+
+
 ## v3.4.0 (2025-01-04)
 
 ### Feature
