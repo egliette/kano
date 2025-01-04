@@ -27,10 +27,11 @@ Explore the [Kano Document](https://egliette.github.io/kano/) to learn how to us
     - [Object Detection](https://egliette.github.io/kano/cv/detect_utils/)
     - Pose Estimation (In progress)
     - Object Segmentation (In progress)
-- [Real-time camera simulation](https://egliette.github.io/kano/simulation/)
-    - [FPS, Resouces Profiling](https://egliette.github.io/kano/simulation/profiler/)
-    - [Real-time Camera Source Reader](https://egliette.github.io/kano/simulation/source_reader/)
-    - [Real-time Fake Detection](https://egliette.github.io/kano/simulation/fake_detection/)
+- [Real-time camera simulation](https://egliette.github.io/kano/lab/)
+    - [FPS, Resouces Profiling](https://egliette.github.io/kano/lab/profiler/)
+    - [Real-time Camera Source Reader](https://egliette.github.io/kano/lab/source_reader/)
+    - [Real-time Fake Detection](https://egliette.github.io/kano/lab/fake_detection/)
+
 
 
 ## 🙋‍♂️ Contributing to Kano
