@@ -2,6 +2,13 @@
 
 
 
+## v3.5.0 (2025-01-04)
+
+### Feature
+
+* feat: update box drawing features allow multiple line drawing ([`fbf3c36`](https://github.com/egliette/kano/commit/fbf3c36c315ef9c748650f262a7c366b9bcbc01c))
+
+
 ## v3.4.1 (2025-01-04)
 
 ### Fix
