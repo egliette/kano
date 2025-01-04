@@ -2,7 +2,14 @@
 
 
 
-## v3.3.0 (2024-12-23)
+## v3.4.0 (2025-01-04)
+
+### Feature
+
+* feat: add fake detection features ([`31b3676`](https://github.com/egliette/kano/commit/31b367665534ce292d25bd497fd7c6a283baf915))
+
+
+## v3.3.0 (2024-12-22)
 
 ### Feature
 
