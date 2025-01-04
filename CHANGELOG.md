@@ -2,6 +2,13 @@
 
 
 
+## v3.6.1 (2025-01-05)
+
+### Fix
+
+* fix: fix draw_bbox referenced before assignment ([`1c3298d`](https://github.com/egliette/kano/commit/1c3298d51ca2d647dfff4ab78159512c4a3d5892))
+
+
 ## v3.6.0 (2025-01-04)
 
 ### Feature
