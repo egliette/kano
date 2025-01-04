@@ -14,7 +14,7 @@ The `FPSCounter` class tracks the number of frames processed over time and compu
 ```python
 import time
 
-from kano.profiler import FPSCounter
+from kano.lab.profiler import FPSCounter
 
 # Initialize FPSCounter with a 1-second print cycle
 fps_counter = FPSCounter(fps_print_cycle=1, prefix_fps_print="App")
@@ -43,7 +43,7 @@ The `ResourceProfiler` class monitors the system's CPU and RAM usage for a given
 ```python
 import time
 
-from kano.profiler import ResourceProfiler
+from kano.lab.profiler import ResourceProfiler
 
 # Initialize ResourceProfiler to monitor CPU and RAM usage every 2 seconds
 profiler = ResourceProfiler(interval_seconds=2, csv_path="resource_usage.csv")
@@ -69,7 +69,7 @@ The `VideoStreamer` class streams video from a source (file or camera) and retri
 
 
 ```python
-from kano.source_reader import VideoStreamer
+from kano.lab.source_reader import VideoStreamer
 
 
 video_streamer = VideoStreamer("video.mp4")

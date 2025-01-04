@@ -29,5 +29,5 @@ pip install kano-cv
     - Object Segmentation (In progress)
 - [Real-time camera simulation](https://egliette.github.io/kano/simulation/)
     - [FPS, Resouces Profiling](https://egliette.github.io/kano/simulation/profiler/)
-    - [Real-time Camera Source Reader](https://egliette.github.io/kano/source_reader/)
-    - [Real-time Fake Detection](https://egliette.github.io/kano/fake_detection/)
+    - [Real-time Camera Source Reader](https://egliette.github.io/kano/simulation/source_reader/)
+    - [Real-time Fake Detection](https://egliette.github.io/kano/simulation/fake_detection/)
