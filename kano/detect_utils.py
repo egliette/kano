@@ -1,3 +1,5 @@
+from typing import List, Optional, Tuple, Union
+
 import cv2
 import numpy as np
 
@@ -38,21 +40,43 @@ def xywh2xyxy(xywh):
     return x_min, y_min, x_max, y_max
 
 
-def draw_bbox(
-    image, bbox, bbox_type="xyxy", bbox_color=(0, 0, 255), label=None
-):
+def get_font_config(image_height: int) -> Tuple[float, int]:
     """
-    Draws a bounding box on the image.
+    Factory function to generate font configuration based on image height.
+
+    Args:
+        image_height (int): Height of the image.
+
+    Returns:
+        tuple: A tuple containing font scale (float), thickness (int), pad (int).
+    """
+    if image_height >= 1000:
+        return (1.5, 3, 20)
+    elif image_height >= 500:
+        return (1, 2, 10)
+    else:
+        return (0.75, 2, 5)
+
+
+def draw_bbox(
+    image: Union[np.ndarray, str],
+    bbox: Union[List[float], Tuple[float, ...], np.ndarray],
+    bbox_type: str = "xyxy",
+    bbox_color: Tuple[int, int, int] = (0, 0, 255),
+    label: Optional[str] = None,
+) -> np.ndarray:
+    """
+    Draws a bounding box on the image and optionally draws a multi-line label.
 
     Args:
         image (np.ndarray or str): The image on which the bounding box will be drawn.
-        bbox (list or np.ndarray): The bounding box coordinates. If it's a list, it should be in the format specified by bbox_type.
+        bbox (list or tuple or np.ndarray): The bounding box coordinates. If it's a list, it should be in the format specified by bbox_type.
         bbox_type (str): Type of bounding box coordinates. Should be either "xyxy" or "xywh" or "s_xywh".
         bbox_color (tuple): Color of the bounding box in BGR format.
-        label (str, optional): Label to be displayed alongside the bounding box.
+        label (str, optional): Label to be displayed alongside the bounding box. Supports multiple lines with '/n' separating lines.
 
     Returns:
-        temp_image (np.ndarray): Image with the bounding box drawn.
+        np.ndarray: Image with the bounding box and label drawn.
     """
     if isinstance(image, str):
         temp_image = cv2.imread(image)
@@ -61,10 +85,9 @@ def draw_bbox(
 
     image_height, image_width = temp_image.shape[:2]
 
-    temp_bbox = bbox.copy()
-    if isinstance(bbox, list):
+    if isinstance(bbox, (list, tuple)):
         temp_bbox = np.array(bbox)
-
+    temp_bbox = temp_bbox.copy()
     if "s_" in bbox_type:
         temp_bbox *= np.array(
             [image_width, image_height, image_width, image_height]
@@ -80,42 +103,45 @@ def draw_bbox(
         raise ValueError("Invalid bounding box type")
 
     cv2.rectangle(temp_image, (x_min, y_min), (x_max, y_max), bbox_color, 2)
+
     if label is not None:
         font = cv2.FONT_HERSHEY_SIMPLEX
-        if image_height >= 1000:
-            font_scale = 1.5
-            thickness = 3
-        elif image_height >= 500:
-            font_scale = 1
-            thickness = 2
-        else:
-            font_scale = 0.75
-            thickness = 2
-        (text_width, text_height), _ = cv2.getTextSize(
-            label, font, font_scale, thickness
-        )
+        font_scale, thickness, pad = get_font_config(image_height)
 
-        background_position = (x_min, y_min)
-        background_end_position = (
-            x_min + text_width,
-            y_min - text_height - 5,
+        label_lines = label.split("\n")
+        (text_width, text_height), _ = cv2.getTextSize(
+            "sample", font, font_scale, thickness
         )
-        cv2.rectangle(
-            temp_image,
-            background_position,
-            background_end_position,
-            bbox_color,
-            -1,
-        )
-        cv2.putText(
-            temp_image,
-            label,
-            (x_min, y_min),
-            font,
-            font_scale,
-            (255, 255, 255),
-            thickness,
-        )
+        y_offset = y_min - (text_height + pad) * (len(label_lines) - 1)
+
+        for line in label_lines:
+            (text_width, text_height), _ = cv2.getTextSize(
+                line, font, font_scale, thickness
+            )
+
+            background_position = (x_min, y_offset)
+            background_end_position = (
+                x_min + text_width,
+                y_offset - text_height - pad,
+            )
+            cv2.rectangle(
+                temp_image,
+                background_position,
+                background_end_position,
+                bbox_color,
+                -1,
+            )
+            cv2.putText(
+                temp_image,
+                line,
+                (x_min, y_offset - pad // 2),
+                font,
+                font_scale,
+                (255, 255, 255),
+                thickness,
+            )
+
+            y_offset += text_height + pad
 
     return temp_image
 
