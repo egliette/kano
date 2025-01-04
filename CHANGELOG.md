@@ -2,6 +2,13 @@
 
 
 
+## v3.6.0 (2025-01-04)
+
+### Feature
+
+* feat: refactor image_utils, add text adding feature ([`1175dba`](https://github.com/egliette/kano/commit/1175dbac1ec2545e724f64d5a92b0488fa8fde0f))
+
+
 ## v3.5.1 (2025-01-04)
 
 ### Fix
