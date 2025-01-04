@@ -87,7 +87,8 @@ def draw_bbox(
 
     if isinstance(bbox, (list, tuple)):
         temp_bbox = np.array(bbox)
-    temp_bbox = temp_bbox.copy()
+    else:
+        temp_bbox = bbox.copy()
     if "s_" in bbox_type:
         temp_bbox *= np.array(
             [image_width, image_height, image_width, image_height]
