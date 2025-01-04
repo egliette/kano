@@ -2,6 +2,13 @@
 
 
 
+## v3.5.1 (2025-01-04)
+
+### Fix
+
+* fix: fix document lab urls ([`1410a16`](https://github.com/egliette/kano/commit/1410a162318eeef9eec4bc3d4b63a3e9d4e560cf))
+
+
 ## v3.5.0 (2025-01-04)
 
 ### Feature
