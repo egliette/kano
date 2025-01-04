@@ -4,7 +4,7 @@ from queue import Queue
 
 import cv2
 
-from kano.profiler import FPSCounter
+from kano.lab.profiler import FPSCounter
 
 
 class VideoStreamer:

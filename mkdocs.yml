@@ -36,8 +36,12 @@ nav:
         - cv/index.md
         - Dataset: cv/dataset_utils.md
         - Object detection: cv/detect_utils.md
-        - Profiling: cv/profiler.md
-        - Source reader: cv/source_reader.md
+    - Real-time camera simulation:
+        - lab/index.md
+        - Profiling: lab/profiler.md
+        - Source reader: lab/source_reader.md
+        - Fake detections: lab/fake_detection.md
+
 
   - Common:
     - common/index.md
@@ -49,8 +53,12 @@ nav:
     - cv/index.md
     - Dataset: cv/dataset_utils.md
     - Object detection: cv/detect_utils.md
-    - Profiling: cv/profiler.md
-    - Source reader: cv/source_reader.md
+
+  - Real-time camera simulation:
+      - lab/index.md
+      - Profiling: lab/profiler.md
+      - Source reader: lab/source_reader.md
+      - Fake detections: lab/fake_detection.md
 
 
 markdown_extensions:

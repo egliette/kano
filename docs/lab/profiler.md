@@ -7,8 +7,8 @@
 - **FPSProfiler**: A subclass of `ResourceProfiler` that also tracks FPS and logs it along with CPU and RAM usage.
 
 
-::: kano.profiler.FPSCounter
+::: kano.lab.profiler.FPSCounter
 
-::: kano.profiler.ResourceProfiler
+::: kano.lab.profiler.ResourceProfiler
 
-::: kano.profiler.FPSProfiler
+::: kano.lab.profiler.FPSProfiler
