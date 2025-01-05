@@ -2,7 +2,14 @@
 
 
 
-## v3.6.1 (2025-01-05)
+## v3.6.2 (2025-01-05)
+
+### Fix
+
+* fix: fix VideoStreamer init and stop conditions ([`a0a3b44`](https://github.com/egliette/kano/commit/a0a3b448760ca9b1b7c38681b04a5cb0fe3c45f1))
+
+
+## v3.6.1 (2025-01-04)
 
 ### Fix
 
