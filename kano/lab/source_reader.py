@@ -17,7 +17,11 @@ class VideoStreamer:
     """
 
     def __init__(
-        self, source: str, reconnect: bool = True, reconnect_time: float = 2
+        self,
+        source: str,
+        fps: int = None,
+        reconnect: bool = True,
+        reconnect_time: float = 2,
     ):
         """
         Initializes the VideoStreamer class to stream video from the specified source.
@@ -29,12 +33,13 @@ class VideoStreamer:
         """
         self.source = source
         self.frame_queue = Queue(maxsize=5)
-        thread = threading.Thread(target=self._read_frames)
-        thread.start()
-        thread.daemon = True
-        self.stop = False
+        self._stop = False
         self.reconnect = reconnect
         self.reconnect_time = reconnect_time
+        self.fps = fps
+        thread = threading.Thread(target=self._read_frames)
+        thread.daemon = True
+        thread.start()
 
     def _read_frames(self):
         """
@@ -47,14 +52,16 @@ class VideoStreamer:
         if not cap.isOpened():
             raise ValueError(f"Error when playing {self.source}.")
 
-        source_fps = cap.get(cv2.CAP_PROP_FPS)
+        if self.fps is None:
+            self.fps = cap.get(cv2.CAP_PROP_FPS)
+
         running = True
         fps_counter = FPSCounter()
 
         while running:
             ret, frame = cap.read()
 
-            if not ret or not self.stop:
+            if not ret or self._stop:
                 if self.reconnect:
                     print("Reconnect...")
                     time.sleep(self.reconnect_time)
@@ -64,7 +71,7 @@ class VideoStreamer:
                 break
 
             fps_counter.update()
-            fps_counter.keep_target_fps(source_fps)
+            fps_counter.keep_target_fps(self.fps)
 
             try:
                 self.frame_queue.put_nowait(frame)
@@ -86,4 +93,4 @@ class VideoStreamer:
         """
         Stop the stream thread
         """
-        self.stop = True
+        self._stop = True

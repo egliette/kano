@@ -51,7 +51,7 @@ def get_font_config(image_height: int) -> Tuple[float, int]:
         tuple: A tuple containing font scale (float), thickness (int), pad (int).
     """
     if image_height >= 1000:
-        return (1.5, 3, 20)
+        return (1.25, 2, 20)
     elif image_height >= 500:
         return (1, 2, 10)
     else:
